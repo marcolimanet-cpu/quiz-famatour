@@ -73,6 +73,25 @@ genérica de viagens em `src/data/perguntas-crm.ts` (a finalidade comercial
 de cada pergunta manteve-se igual — só a palavra mudou). Ver o comentário no
 topo desse ficheiro para o antes/depois exato.
 
+## Identidade visual
+
+O logótipo e a cor de azul (`#123572`, exata — extraída por pixel do
+ficheiro real em famatour.pt) vêm do site oficial da Famatour:
+
+- `public/images/brand/logo-azul.png` / `logo-branco.png` — lockup horizontal
+  (ícone + "famatour"), fundo transparente
+- `public/images/brand/marca-icon-azul.png` / `marca-icon-branco.png` — só o
+  símbolo, para usos quadrados
+- `src/components/BrandLogo.tsx` — componente que os usa (`variante="azul"`
+  ou `"branco"` consoante o fundo)
+- `src/app/icon.png`, `apple-icon.png`, `favicon.ico` — gerados a partir do
+  símbolo
+
+O dourado (`--color-dourado-*` em `globals.css`) não existe no site atual da
+Famatour — é um acento que tinhas pedido explicitamente no briefing para dar
+destaque a CTAs e à animação de seleção. Se preferires alinhar 100% com o
+site (sem dourado), é só trocar essas variáveis.
+
 ## Lógica do jogo
 
 `src/lib/scoring.ts` é o motor de pontuação (função pura, sem dependências
@@ -142,12 +161,6 @@ destino é...") só aparece no browser da própria pessoa, via `sessionStorage`
   nome), claramente marcados. Substitui por fotografia licenciada ou da
   Famatour antes do lançamento — mesma estrutura de pastas, `1.jpg` é a
   imagem principal.
-- **Logótipo real.** Ver `public/images/brand/LEIA-ME.md` — a app usa um
-  wordmark de texto como substituto porque não consegui guardar o ficheiro
-  do logótipo que me mostraste (só chega como imagem colada na conversa,
-  não como ficheiro). A cor de azul (`--color-azul-900` em
-  `src/app/globals.css`) é uma aproximação visual ao logótipo, não o HEX
-  oficial da marca.
 - **`tipoVisual` das perguntas.** Classificação inicial minha
   (texto/imagem) em `src/data/perguntas.ts` — valida depois de veres o
   protótipo com os dois tipos de cartão.

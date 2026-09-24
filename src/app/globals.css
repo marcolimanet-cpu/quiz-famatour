@@ -1,13 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  /* Paleta Famatour: azul profundo (ajustado ao azul real do logótipo
-     enviado), dourado e branco. O azul-900 é a minha melhor aproximação
-     visual ao azul do logótipo — não tenho o código de cor exato (HEX/RGB)
-     do manual de marca, só a imagem; confirma-o com o Marco se precisares
-     de 100% de fidelidade em material impresso. */
+  /* Paleta Famatour: azul profundo, dourado e branco. O azul-900 (#123572)
+     é o HEX exato extraído por pixel do logótipo real em famatour.pt — não
+     é uma aproximação. */
   --color-azul-950: #0a1f3f;
-  --color-azul-900: #14356e;
+  --color-azul-900: #123572;
   --color-azul-800: #1c4384;
   --color-azul-700: #2557a0;
   --color-azul-600: #3e71bc;
