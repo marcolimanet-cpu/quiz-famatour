@@ -187,11 +187,11 @@ destino é...") só aparece no browser da própria pessoa, via `sessionStorage`
 - **Imagens finais dos destinos.** `/public/images/quiz/` já tem fotos
   reais (Pexels, licença gratuita para uso comercial, sem atribuição
   obrigatória — créditos em `public/images/quiz/CREDITOS.md`).
-  `/public/images/destinos/{chave}/` e `/public/images/hero/` continuam
-  placeholders gerados por código (gradiente + nome), claramente marcados.
-  Substitui por fotografia licenciada, da Famatour, ou pede-me para ir
-  buscar mais ao Pexels — mesma estrutura de pastas, `1.jpg` é a imagem
-  principal.
+  `/public/images/hero/inicio.jpg` também já é uma imagem final (fornecida
+  pelo Marco). `/public/images/destinos/{chave}/` continua placeholder
+  gerado por código (gradiente + nome), claramente marcado. Substitui por
+  fotografia licenciada, da Famatour, ou pede-me para ir buscar mais ao
+  Pexels — mesma estrutura de pastas, `1.jpg` é a imagem principal.
 - **`tipoVisual` das perguntas.** Classificação inicial minha
   (texto/imagem) em `src/data/perguntas.ts` — valida depois de veres o
   protótipo com os dois tipos de cartão.
