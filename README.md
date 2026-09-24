@@ -57,12 +57,17 @@ Todas as perguntas, opções e pontos vêm de `Quiz_Famatour_Destinos.xlsx`
 - `src/data/perguntas.ts` — as 12 perguntas (4 da Fase 1 + 2×4 da Fase 2, uma
   por cluster) com as suas opções e pontos por destino
 - `src/data/perguntas-crm.ts` — as perguntas pós-resultado (não pontuam)
-- `src/data/conteudo-guia.ts` — conteúdo do mini-guia, **placeholder** até
-  teres a folha "Conteudo_Guia" pronta (ver secção de imagens abaixo)
 
 **Não editei nenhum ponto da matriz.** Se precisares de ajustar pesos, edita
 diretamente `src/data/perguntas.ts` — está isolado dos componentes, como
 pedido.
+
+`src/data/conteudo-guia.ts` vem de um segundo ficheiro fonte,
+`Guia_Destinos_Famatour.docx` (as 3 experiências, info prática, mala,
+gastronomia, compras, cultura/etiqueta e dicionário de cada destino) — é
+conteúdo real, não placeholder. Para atualizar, pede um novo `.docx` com a
+mesma estrutura (título por destino em Heading 1, secções nos parágrafos
+"a negrito", duas tabelas por destino) e eu extraio outra vez.
 
 ### Adaptação de texto (confirmada contigo)
 
@@ -127,12 +132,26 @@ batota.
 `src/lib/services/automation.ts` é o único sítio que sabe falar com a
 ferramenta de automação externa — um POST JSON para
 `AUTOMATION_WEBHOOK_URL`. Para trocar de ferramenta (HubSpot, Zapier,
-outra), só este ficheiro muda.
+outra), só este ficheiro muda. Dois eventos distintos, pelo mesmo webhook
+(o Make.com decide o que fazer com cada um a partir do campo `evento`):
 
-Disparado só quando a participação tem consentimento CRM (`submeterCrm`).
-Falhas ficam registadas em `webhook_enviado` / `webhook_ultimo_erro` na
-tabela `participacoes`, sem nunca logar dados sensíveis — para poderes
-reprocessar manualmente as que falharam.
+- **`resultado_calculado`** — disparado sempre que o resultado é calculado
+  (`criarParticipacao`), sem depender de consentimento CRM. É transacional:
+  entrega o link do guia completo (`/guia/[destino]`) ao email/telemóvel
+  que a pessoa acabou de dar precisamente para isso — não é "comunicações e
+  ofertas personalizadas", por isso não precisa do checkbox de consentimento.
+  Corre depois da resposta ser enviada ao browser (`after()` do Next.js),
+  para não atrasar a revelação do resultado.
+- **`crm_consentido`** — disparado só com consentimento CRM explícito
+  (`submeterCrm`), com as respostas da secção CRM e os sinais de
+  comportamento. Este sim alimenta marketing personalizado.
+
+Falhas do evento `crm_consentido` ficam registadas em `webhook_enviado` /
+`webhook_ultimo_erro` na tabela `participacoes`, para poderes reprocessar
+manualmente. Falhas do `resultado_calculado` só vão para o log (Vercel
+Runtime Logs) — é um envio best-effort complementar ao link que já fica
+sempre disponível em `/resultado/[id]`, por isso não tem o mesmo peso de
+"perdi um lead" que o `crm_consentido` tem.
 
 ## Sinais de comportamento
 
@@ -140,9 +159,19 @@ Gravados sem pedir nada ao utilizador, via `POST /api/sinais`
 (`fetch(..., { keepalive: true })`, sobrevive ao fecho da página):
 
 - Tempo de resposta por pergunta (`tempoRespostaSegundos` em cada resposta)
-- Se o mini-guia foi aberto por completo (scroll até ao fim)
+- Se o guia completo foi aberto (`/guia/[destino]`, a partir do botão
+  "Descarrega o teu guia completo" ou do link enviado por email)
 - Se o botão de partilha WhatsApp foi clicado
-- Se o botão "falar com consultor" foi clicado
+- Se o botão "falar com consultor" foi clicado (no resultado ou no guia)
+
+## O guia completo (/guia/[destino])
+
+Página pública e estática, com o mesmo conteúdo para toda a gente que
+recebeu aquele destino — não tem nada específico do participante. O botão
+no ecrã de resultado abre `/guia/[destino]?p={participacaoId}`; o `?p=` só
+serve para registar o sinal "guia aberto" (`guia_aberto_completo`) daquela
+participação — nunca é usado para mostrar dados dela na página, por isso
+não há problema de privacidade em o link circular.
 
 ## Privacidade do link de resultado partilhado
 
@@ -167,7 +196,9 @@ destino é...") só aparece no browser da própria pessoa, via `sessionStorage`
 - **Coluna "Alinhado com catálogo Famatour"** da folha Destinos — validação
   de negócio, não fica representada no código.
 - **Nº de WhatsApp do consultor** e **URL do webhook Make.com** — configurar
-  via variáveis de ambiente antes de ativar em produção.
+  via variáveis de ambiente antes de ativar em produção. Sem
+  `AUTOMATION_WEBHOOK_URL`, o guia continua acessível pelo botão no
+  resultado, só o envio automático por email fica em falta.
 - **Verificação de cliente existente** — não implementada nesta fase
   (decisão tua: a base de clientes atual não está facilmente consultável).
   A estrutura de dados já tem `referrer_partilha_id` preparado para
@@ -186,11 +217,13 @@ src/
   lib/services/automation.ts  webhook de CRM/automação
   lib/sinais.ts                sinais de comportamento (cliente)
   lib/analytics.ts             GA4 + Meta Pixel (cliente)
-  app/actions.ts               Server Actions (criar participação, CRM, email do guia)
+  app/actions.ts               Server Actions (criar participação, CRM)
   app/api/sinais/               Route Handler dos sinais de comportamento
   app/page.tsx                  landing + quiz (SPA cliente)
   app/resultado/[id]/           página de resultado pública/partilhável
+  app/guia/[destino]/           guia completo do destino (público, sem dados do participante)
   components/quiz/              ecrãs e cartões do quiz
-  components/resultado/         mini-guia, partilha, CRM, CTA consultor
+  components/resultado/         mini-guia (prévia), partilha, CRM, CTA consultor
+  components/guia/              conteúdo do guia completo, botão "Guardar em PDF"
 supabase/schema.sql            schema da tabela participacoes
 ```

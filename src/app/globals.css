@@ -61,3 +61,12 @@ body {
 .animacao-acender {
   animation: acender 0.6s ease-out;
 }
+
+/* Guardar em PDF (/guia/[destino]): mantém fundos e imagens ao imprimir,
+   em vez do "poupar tinta" que a maioria dos browsers aplica por defeito. */
+@media print {
+  * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

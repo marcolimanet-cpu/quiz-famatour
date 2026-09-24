@@ -7,8 +7,15 @@ import type { RespostaCrmGuardada, UtmParams } from "@/lib/supabase/types";
  * ambiente — ver AUTOMATION_WEBHOOK_URL no .env.example). Se um dia
  * trocares de ferramenta (HubSpot, Zapier, outra), só este ficheiro muda.
  *
- * Só deve ser chamado depois de consentimento CRM explícito ter sido dado
- * (a Server Action que o invoca garante isso).
+ * Dois eventos distintos, pelo mesmo webhook (o campo `evento` deixa o
+ * cenário do Make.com decidir o que fazer com cada um):
+ *
+ * - "resultado_calculado": disparado sempre, assim que o resultado é
+ *   calculado — sem depender de consentimento CRM, porque é transacional
+ *   (entregar o guia à pessoa que acabou de dar o email precisamente para
+ *   isso), não é "comunicações e ofertas personalizadas". Payload mínimo.
+ * - "crm_consentido": disparado só com consentimento CRM explícito — este
+ *   sim é o que alimenta marketing personalizado com base nas respostas.
  */
 
 export interface SinaisComportamento {
@@ -17,7 +24,22 @@ export interface SinaisComportamento {
   partilhaWhatsappClicada: boolean;
 }
 
-export interface PayloadAutomacao {
+export interface PayloadResultadoCalculado {
+  evento: "resultado_calculado";
+  participacaoId: string;
+  criadoEm: string;
+  nome: string;
+  email: string | null;
+  telemovel: string | null;
+  destinoVencedor: string;
+  clusterVencedor: string;
+  utm: UtmParams;
+  linkGuiaCompleto: string;
+  linkResultado: string;
+}
+
+export interface PayloadCrmConsentido {
+  evento: "crm_consentido";
   participacaoId: string;
   criadoEm: string;
   nome: string;
@@ -32,6 +54,8 @@ export interface PayloadAutomacao {
   partilhaId: string;
   linkResultado: string;
 }
+
+export type PayloadAutomacao = PayloadResultadoCalculado | PayloadCrmConsentido;
 
 export interface ResultadoEnvioAutomacao {
   ok: boolean;

@@ -9,7 +9,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { ShareButtons } from "./ShareButtons";
 import { ConsultorCTA } from "./ConsultorCTA";
 import { MiniGuia } from "./MiniGuia";
-import { GuiaEmailCTA } from "./GuiaEmailCTA";
+import { GuiaCompletoCTA } from "./GuiaCompletoCTA";
 import { FormularioCrm } from "./FormularioCrm";
 
 interface ResultadoClientProps {
@@ -113,13 +113,12 @@ export function ResultadoClient({
       </section>
 
       <MiniGuia
-        participacaoId={participacaoId}
         nomeDestino={destinoVencedor.nomeCompleto}
         conteudo={conteudoGuia}
         perfilDica={perfilDica}
       />
 
-      <GuiaEmailCTA participacaoId={participacaoId} />
+      <GuiaCompletoCTA participacaoId={participacaoId} destinoChave={destinoVencedor.chave} />
 
       <FormularioCrm participacaoId={participacaoId} />
 

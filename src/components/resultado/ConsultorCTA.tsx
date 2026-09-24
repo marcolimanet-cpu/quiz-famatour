@@ -4,7 +4,8 @@ import { registarSinal } from "@/lib/sinais";
 import { registarEvento } from "@/lib/analytics";
 
 interface ConsultorCTAProps {
-  participacaoId: string;
+  /** Omitido em contextos sem participação associada (ex: /guia/[destino] aberto sem ?p=). */
+  participacaoId?: string;
   nomeDestino: string;
 }
 
@@ -29,7 +30,7 @@ export function ConsultorCTA({ participacaoId, nomeDestino }: ConsultorCTAProps)
   const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 
   function clicar() {
-    registarSinal(participacaoId, "consultor_whatsapp_clicado");
+    if (participacaoId) registarSinal(participacaoId, "consultor_whatsapp_clicado");
     registarEvento("consultor_clicado", { destino: nomeDestino });
   }
 

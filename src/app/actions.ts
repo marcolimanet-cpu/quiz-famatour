@@ -1,5 +1,6 @@
 "use server";
 
+import { after } from "next/server";
 import { supabaseServidor } from "@/lib/supabase/server";
 import { calcularResultadoFinal } from "@/lib/scoring";
 import { enviarParaAutomacao } from "@/lib/services/automation";
@@ -59,7 +60,7 @@ export async function criarParticipacao(
       utm: input.utm,
       referrer_partilha_id: input.referrerPartilhaId,
     })
-    .select("id")
+    .select("id, criado_em")
     .single();
 
   if (error || !data) {
@@ -70,36 +71,38 @@ export async function criarParticipacao(
     };
   }
 
-  return { ok: true, id: data.id };
-}
+  // Entrega do guia completo: transacional (a pessoa acabou de dar o email
+  // precisamente para isto), por isso dispara sempre, sem depender do
+  // consentimento CRM — esse continua só a gerir marketing personalizado
+  // (ver submeterCrm). Corre com `after()` para não atrasar a revelação do
+  // resultado à espera da resposta do Make.com.
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  const participacaoId = data.id;
+  const criadoEm = data.criado_em;
 
-export type GuardarEmailGuiaResultado = { ok: boolean; erro?: string };
+  after(async () => {
+    const envio = await enviarParaAutomacao({
+      evento: "resultado_calculado",
+      participacaoId,
+      criadoEm,
+      nome: input.nome.trim(),
+      email: input.email.trim() || null,
+      telemovel: input.telemovel.trim() || null,
+      destinoVencedor,
+      clusterVencedor: resultado.clusterVencedor,
+      utm: input.utm,
+      linkGuiaCompleto: `${siteUrl}/guia/${destinoVencedor}?p=${participacaoId}`,
+      linkResultado: `${siteUrl}/resultado/${participacaoId}`,
+    });
 
-/**
- * Segundo momento de captação de contacto: o email pedido no CTA do
- * mini-guia completo, depois de a pessoa já ter recebido valor (costuma
- * converter melhor do que pedir tudo logo no início).
- */
-export async function guardarEmailGuia(
-  participacaoId: string,
-  email: string
-): Promise<GuardarEmailGuiaResultado> {
-  if (!email.trim()) {
-    return { ok: false, erro: "Escreve o teu email." };
-  }
+    if (!envio.ok) {
+      console.error(
+        `[automation] guia completo não enviado por email para participação ${participacaoId}: ${envio.erro}`
+      );
+    }
+  });
 
-  const supabase = supabaseServidor();
-  const { error } = await supabase
-    .from("participacoes")
-    .update({ guia_email: email.trim() })
-    .eq("id", participacaoId);
-
-  if (error) {
-    console.error("[participacoes] falha ao gravar guia_email:", error.message);
-    return { ok: false, erro: "Não foi possível guardar o teu email." };
-  }
-
-  return { ok: true };
+  return { ok: true, id: participacaoId };
 }
 
 export interface SubmeterCrmInput {
@@ -150,6 +153,7 @@ export async function submeterCrm(
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
 
     const resultadoEnvio = await enviarParaAutomacao({
+      evento: "crm_consentido",
       participacaoId: participacao.id,
       criadoEm: participacao.criado_em,
       nome: participacao.nome,

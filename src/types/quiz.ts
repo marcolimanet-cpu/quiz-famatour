@@ -115,17 +115,64 @@ export type PerguntaCrm = {
 };
 
 /**
- * Conteúdo estático do mini-guia por destino. Virá da futura folha
- * "Conteudo_Guia" do Excel — por agora é texto placeholder (ver
- * src/data/conteudo-guia.ts e o README).
+ * Conteúdo completo do guia de um destino, extraído 1:1 de
+ * Guia_Destinos_Famatour.docx (ver src/data/conteudo-guia.ts). Mostrado por
+ * completo em /guia/[destino] e resumido no mini-guia inline do ecrã de
+ * resultado (src/components/resultado/MiniGuia.tsx).
  */
 export type ConteudoGuiaDestino = {
   destinoChave: DestinoChave;
-  /** Exatamente 3 experiências imperdíveis. */
-  experiencias: [string, string, string];
-  melhorAltura: string;
-  /** true enquanto o texto for placeholder, não conteúdo real da Famatour. */
-  placeholder: boolean;
+  /** Frase em itálico debaixo do título (ex: "Onde o deserto encontra..."). */
+  intro: string;
+  resumo: {
+    especial: string;
+    paraQuem: string;
+    ritmo: string;
+    melhorAltura: string;
+    diasRecomendados: string;
+  };
+  infoEssencial: {
+    capital: string;
+    moeda: string;
+    idioma: string;
+    fusoHorario: string;
+    eletricidade: string;
+    clima: string;
+  };
+  mala: string[];
+  imperdiveis: string[];
+  gastronomia: {
+    pratos: string;
+    bebida: string;
+    sobremesa: string;
+    habitoMesa: string;
+  };
+  compras: {
+    produtos: string;
+    ondeComprar: string;
+    regatear: string;
+    alfandega: string;
+  };
+  comoCircular: {
+    transporte: string;
+    aPe: string;
+  };
+  culturaEtiqueta: {
+    cumprimentar: string;
+    vestuario: string;
+    locaisReligiosos: string;
+    gestos: string;
+    alcool: string;
+  };
+  /**
+   * Omitido para destinos de língua portuguesa (Madeira, Açores, Brasil,
+   * Amazónia) e para o Mediterrâneo (multi-país, sem língua única) — assim
+   * no documento de origem, não é falha de extração.
+   */
+  dicionario?: {
+    idioma: string;
+    frases: { chave: string; valor: string }[];
+  };
 };
 
 export type PerfilDica = "familia" | "luxo" | "tranquilizadora" | "padrao";
