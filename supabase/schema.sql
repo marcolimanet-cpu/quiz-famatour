@@ -24,7 +24,7 @@ create table if not exists public.participacoes (
 
   -- Identificador único para o link de partilha (permite medir partilhas ->
   -- novas participações no futuro; ver referrer_partilha_id abaixo)
-  partilha_id text not null unique default encode(gen_random_bytes(6), 'base64url'),
+  partilha_id text not null unique default encode(gen_random_bytes(8), 'hex'),
   -- Se esta participação chegou a partir do link partilhado por outra
   -- pessoa, guarda aqui o partilha_id de origem. Preparado desde já para a
   -- funcionalidade futura de comparar/votar destinos em grupo, sem a
