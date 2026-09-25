@@ -115,24 +115,27 @@ export async function gerarCartaoPartilha(destino: Destino): Promise<Blob | null
     ctx.fillText("FAMATOUR", 80, 150);
   }
 
+  const yIntro = 1060;
+  const yNomeStart = yIntro + 100;
+
   ctx.fillStyle = "#f2f6fc";
-  ctx.font = "500 34px sans-serif";
+  ctx.font = "500 52px sans-serif";
   ctx.textBaseline = "alphabetic";
-  ctx.fillText("O meu destino ideal é...", 80, 900);
+  ctx.fillText("O meu destino ideal é...", 80, yIntro);
 
   ctx.fillStyle = "#ffffff";
   ctx.font = "700 96px serif";
   const linhasNome = quebrarLinhas(ctx, destino.nomeCompleto, largura - 160);
   linhasNome.forEach((linha, i) => {
-    ctx.fillText(linha, 80, 1000 + i * 108);
+    ctx.fillText(linha, 80, yNomeStart + i * 108);
   });
 
-  const yTagline = 1000 + linhasNome.length * 108 + 70;
+  const yTagline = yNomeStart + linhasNome.length * 108 + 45;
   ctx.fillStyle = "rgba(255,255,255,0.85)";
-  ctx.font = "400 38px sans-serif";
+  ctx.font = "400 50px sans-serif";
   const linhasTagline = quebrarLinhas(ctx, destino.tagline, largura - 160);
   linhasTagline.forEach((linha, i) => {
-    ctx.fillText(linha, 80, yTagline + i * 50);
+    ctx.fillText(linha, 80, yTagline + i * 62);
   });
 
   ctx.fillStyle = "#dbb84a";
