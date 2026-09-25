@@ -19,7 +19,7 @@ interface ConsultorCTAProps {
 export function ConsultorCTA({
   participacaoId,
   nomeDestino,
-  texto = "Falar agora com um consultor Famatour",
+  texto = "Fala com um especialista Famatour",
 }: ConsultorCTAProps) {
   const numero = process.env.NEXT_PUBLIC_WHATSAPP_CONSULTOR_NUMERO;
 
@@ -27,7 +27,7 @@ export function ConsultorCTA({
     return (
       <p className="rounded-xl border-2 border-dashed border-azul-200 p-4 text-center text-sm text-azul-600">
         [PLACEHOLDER] Configura NEXT_PUBLIC_WHATSAPP_CONSULTOR_NUMERO para
-        ativar o botão &quot;Falar com um consultor&quot;.
+        ativar o botão &quot;Fala com um especialista Famatour&quot;.
       </p>
     );
   }
