@@ -4,6 +4,7 @@ import { after } from "next/server";
 import { supabaseServidor } from "@/lib/supabase/server";
 import { calcularResultadoFinal } from "@/lib/scoring";
 import { enviarParaAutomacao } from "@/lib/services/automation";
+import { urlBaseAbsoluta } from "@/lib/site-url";
 import type { RespostaQuiz } from "@/types/quiz";
 import type { RespostaCrmGuardada, UtmParams } from "@/lib/supabase/types";
 
@@ -76,7 +77,7 @@ export async function criarParticipacao(
   // consentimento CRM — esse continua só a gerir marketing personalizado
   // (ver submeterCrm). Corre com `after()` para não atrasar a revelação do
   // resultado à espera da resposta do Make.com.
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  const siteUrl = await urlBaseAbsoluta();
   const participacaoId = data.id;
   const criadoEm = data.criado_em;
 
@@ -150,7 +151,7 @@ export async function submeterCrm(
   }
 
   if (input.consentimento) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+    const siteUrl = await urlBaseAbsoluta();
 
     const resultadoEnvio = await enviarParaAutomacao({
       evento: "crm_consentido",

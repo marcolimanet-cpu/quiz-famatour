@@ -182,6 +182,23 @@ respostas do participante original. A saudação personalizada ("Marco, o teu
 destino é...") só aparece no browser da própria pessoa, via `sessionStorage`
 (nunca chega ao servidor nem a quem abre o link partilhado).
 
+## Links absolutos e Open Graph
+
+`src/lib/site-url.ts` (`urlBaseAbsoluta()`) é o único sítio que decide a
+URL base do site, usado em todos os links partilhados (WhatsApp, Open
+Graph) e no payload do webhook — prioriza `NEXT_PUBLIC_SITE_URL`, com o
+host do próprio pedido HTTP como rede de segurança quando a variável não
+está definida (ou definida como string vazia, que `??` sozinho não
+apanhava — foi exatamente esse bug que partilhava links relativos tipo
+`/resultado/xyz` no WhatsApp, sem protocolo nem domínio, por isso o
+WhatsApp não os reconhecia como link nem gerava pré-visualização).
+
+`/resultado/[id]` e `/guia/[destino]` têm `generateMetadata` com Open
+Graph e Twitter Card específicos do destino (título, descrição, e
+`og:image` a apontar para a foto real do destino) — a pré-visualização
+com imagem ao colar o link no WhatsApp/Instagram/Facebook depende destas
+tags, não só do link estar completo.
+
 ## Cartão de partilha (formato Stories)
 
 O botão "Partilhar nas redes sociais" do ecrã de resultado

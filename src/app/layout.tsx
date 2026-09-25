@@ -14,6 +14,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL?.trim() || "http://localhost:3000"),
   title: "Descobre o teu Destino | Famatour",
   description:
     "Responde a algumas perguntas rápidas e descobre qual é o destino de férias ideal para ti — sugerido pela Famatour.",

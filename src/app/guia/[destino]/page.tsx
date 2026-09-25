@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -11,6 +10,7 @@ import { RegistarAberturaGuia } from "@/components/guia/RegistarAberturaGuia";
 import { PartilharGuiaCTA } from "@/components/guia/PartilharGuiaCTA";
 import { BrandLogo } from "@/components/BrandLogo";
 import { ConsultorCTA } from "@/components/resultado/ConsultorCTA";
+import { urlBaseAbsoluta } from "@/lib/site-url";
 
 export function generateStaticParams() {
   return DESTINOS.map((d) => ({ destino: d.chave }));
@@ -23,9 +23,25 @@ export async function generateMetadata({
   const destino = getDestino(chave);
   if (!destino) return {};
 
+  const urlBase = await urlBaseAbsoluta();
+  const titulo = `Guia de ${destino.nomeCompleto} | Famatour`;
+  const imagem = `${urlBase}/images/destinos/${destino.chave}/1.jpg`;
+
   return {
-    title: `Guia de ${destino.nomeCompleto} | Famatour`,
+    title: titulo,
     description: destino.tagline,
+    openGraph: {
+      title: titulo,
+      description: destino.tagline,
+      type: "website",
+      images: [{ url: imagem, alt: destino.nomeCompleto }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titulo,
+      description: destino.tagline,
+      images: [imagem],
+    },
   };
 }
 
@@ -46,11 +62,8 @@ export default async function GuiaCompletoPage({
 
   const participacaoId = primeiroValor(query.p) ?? null;
 
-  const headersList = await headers();
-  const host = headersList.get("host");
-  const protocolo = process.env.NODE_ENV === "development" ? "http" : "https";
-  const origem = process.env.NEXT_PUBLIC_SITE_URL ?? (host ? `${protocolo}://${host}` : "");
-  const linkGuia = `${origem}/guia/${destino.chave}`;
+  const urlBase = await urlBaseAbsoluta();
+  const linkGuia = `${urlBase}/guia/${destino.chave}`;
 
   return (
     <main className="flex flex-1 flex-col bg-white">
