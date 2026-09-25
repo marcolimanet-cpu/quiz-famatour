@@ -12,6 +12,7 @@ export type EventoAnalytics =
   | "resultado_revelado"
   | "crm_submetido"
   | "partilha_whatsapp_clicada"
+  | "partilha_instagram_clicada"
   | "consultor_clicado";
 
 declare global {

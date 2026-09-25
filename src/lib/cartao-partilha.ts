@@ -1,11 +1,13 @@
 "use client";
 
+import type { Destino } from "@/types/quiz";
+
 /**
- * Gera o cartão de partilha (formato vertical tipo Stories, 1080x1920) em
- * canvas, para download. V1 desenhado com gradiente + texto (sem depender
- * de fotografia licenciada ainda em falta) — fácil de evoluir para compor a
- * foto real do destino por cima assim que as imagens finais da Famatour
- * estiverem disponíveis (ver README).
+ * Gera o cartão de partilha (formato vertical tipo Stories, 1080x1920): a
+ * foto real do destino como fundo, o logótipo da Famatour e o nome do
+ * destino sobrepostos com um gradiente para legibilidade. Devolve um Blob
+ * (em vez de data URL) porque é o formato que a Web Share API espera para
+ * partilhar como ficheiro.
  */
 function quebrarLinhas(
   ctx: CanvasRenderingContext2D,
@@ -29,7 +31,42 @@ function quebrarLinhas(
   return linhas;
 }
 
-export function gerarCartaoPartilha(nomeDestino: string, tagline: string): string {
+function carregarImagem(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error(`falha ao carregar ${src}`));
+    img.src = src;
+  });
+}
+
+/** Desenha `img` a preencher todo o retângulo alvo, cortando o excedente (comportamento "cover" do CSS). */
+function desenharImagemCover(
+  ctx: CanvasRenderingContext2D,
+  img: HTMLImageElement,
+  largura: number,
+  altura: number
+) {
+  const rácioImagem = img.width / img.height;
+  const rácioAlvo = largura / altura;
+
+  let sLargura = img.width;
+  let sAltura = img.height;
+  let sx = 0;
+  let sy = 0;
+
+  if (rácioImagem > rácioAlvo) {
+    sLargura = img.height * rácioAlvo;
+    sx = (img.width - sLargura) / 2;
+  } else {
+    sAltura = img.width / rácioAlvo;
+    sy = (img.height - sAltura) / 2;
+  }
+
+  ctx.drawImage(img, sx, sy, sLargura, sAltura, 0, 0, largura, altura);
+}
+
+export async function gerarCartaoPartilha(destino: Destino): Promise<Blob | null> {
   const largura = 1080;
   const altura = 1920;
 
@@ -37,31 +74,55 @@ export function gerarCartaoPartilha(nomeDestino: string, tagline: string): strin
   canvas.width = largura;
   canvas.height = altura;
   const ctx = canvas.getContext("2d");
-  if (!ctx) return "";
+  if (!ctx) return null;
 
-  const gradiente = ctx.createLinearGradient(0, 0, largura, altura);
-  gradiente.addColorStop(0, "#0a1f3f");
-  gradiente.addColorStop(1, "#2557a0");
-  ctx.fillStyle = gradiente;
-  ctx.fillRect(0, 0, largura, altura);
+  try {
+    const [foto, logo] = await Promise.all([
+      carregarImagem(`/images/destinos/${destino.chave}/1.jpg`),
+      carregarImagem("/images/brand/logo-branco.png"),
+    ]);
 
-  ctx.beginPath();
-  ctx.arc(largura * 0.85, altura * 0.18, 260, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(201, 162, 39, 0.25)";
-  ctx.fill();
+    desenharImagemCover(ctx, foto, largura, altura);
 
-  ctx.fillStyle = "#dbb84a";
-  ctx.font = "600 40px sans-serif";
-  ctx.textBaseline = "alphabetic";
-  ctx.fillText("FAMATOUR", 80, 150);
+    const gradienteTopo = ctx.createLinearGradient(0, 0, 0, altura * 0.22);
+    gradienteTopo.addColorStop(0, "rgba(8, 20, 40, 0.6)");
+    gradienteTopo.addColorStop(1, "rgba(8, 20, 40, 0)");
+    ctx.fillStyle = gradienteTopo;
+    ctx.fillRect(0, 0, largura, altura * 0.22);
+
+    const gradienteFundo = ctx.createLinearGradient(0, altura * 0.38, 0, altura);
+    gradienteFundo.addColorStop(0, "rgba(8, 20, 40, 0)");
+    gradienteFundo.addColorStop(0.55, "rgba(8, 20, 40, 0.78)");
+    gradienteFundo.addColorStop(1, "rgba(8, 20, 40, 0.95)");
+    ctx.fillStyle = gradienteFundo;
+    ctx.fillRect(0, altura * 0.38, largura, altura * 0.62);
+
+    const larguraLogo = 280;
+    const alturaLogo = (logo.height / logo.width) * larguraLogo;
+    ctx.drawImage(logo, 80, 90, larguraLogo, alturaLogo);
+  } catch {
+    // Foto ou logótipo indisponíveis (ex: rede lenta) — cai para o gradiente
+    // simples, para a partilha nunca falhar por completo.
+    const gradiente = ctx.createLinearGradient(0, 0, largura, altura);
+    gradiente.addColorStop(0, "#0a1f3f");
+    gradiente.addColorStop(1, "#2557a0");
+    ctx.fillStyle = gradiente;
+    ctx.fillRect(0, 0, largura, altura);
+
+    ctx.fillStyle = "#dbb84a";
+    ctx.font = "600 40px sans-serif";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("FAMATOUR", 80, 150);
+  }
 
   ctx.fillStyle = "#f2f6fc";
   ctx.font = "500 34px sans-serif";
+  ctx.textBaseline = "alphabetic";
   ctx.fillText("O meu destino ideal é...", 80, 900);
 
   ctx.fillStyle = "#ffffff";
   ctx.font = "700 96px serif";
-  const linhasNome = quebrarLinhas(ctx, nomeDestino, largura - 160);
+  const linhasNome = quebrarLinhas(ctx, destino.nomeCompleto, largura - 160);
   linhasNome.forEach((linha, i) => {
     ctx.fillText(linha, 80, 1000 + i * 108);
   });
@@ -69,7 +130,7 @@ export function gerarCartaoPartilha(nomeDestino: string, tagline: string): strin
   const yTagline = 1000 + linhasNome.length * 108 + 70;
   ctx.fillStyle = "rgba(255,255,255,0.85)";
   ctx.font = "400 38px sans-serif";
-  const linhasTagline = quebrarLinhas(ctx, tagline, largura - 160);
+  const linhasTagline = quebrarLinhas(ctx, destino.tagline, largura - 160);
   linhasTagline.forEach((linha, i) => {
     ctx.fillText(linha, 80, yTagline + i * 50);
   });
@@ -78,5 +139,5 @@ export function gerarCartaoPartilha(nomeDestino: string, tagline: string): strin
   ctx.font = "500 32px sans-serif";
   ctx.fillText("Descobre o teu destino em famatour.pt", 80, altura - 100);
 
-  return canvas.toDataURL("image/png");
+  return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
 }

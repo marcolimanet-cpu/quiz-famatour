@@ -182,6 +182,30 @@ respostas do participante original. A saudação personalizada ("Marco, o teu
 destino é...") só aparece no browser da própria pessoa, via `sessionStorage`
 (nunca chega ao servidor nem a quem abre o link partilhado).
 
+## Cartão de partilha (Instagram Stories)
+
+O botão "Partilhar no Instagram" do ecrã de resultado (`ShareButtons.tsx`)
+gera, em `src/lib/cartao-partilha.ts`, uma imagem vertical 1080x1920 com a
+foto real do destino (`/images/destinos/{chave}/1.jpg`), o logótipo da
+Famatour e o nome do destino sobrepostos com gradiente.
+
+- **Em telemóveis que suportam a Web Share API com ficheiros**
+  (`navigator.canShare({ files })`) — a maioria dos Android/iOS recentes —
+  abre a caixa nativa de partilha do sistema, onde a pessoa escolhe
+  Instagram ou qualquer outra app. Não é possível abrir o Instagram
+  diretamente nem pré-preencher a Story a partir do browser — é uma
+  limitação da própria Web Share API, não desta implementação.
+- **Em computador (ou telemóveis sem esse suporte)** a imagem é
+  descarregada diretamente, com a instrução "Guarda esta imagem e
+  publica-a na tua Story" visível por baixo do botão.
+
+O comportamento real da caixa de partilha nativa (com o Instagram a
+aparecer como opção) só é verificável num telemóvel a sério — o browser
+headless usado em ambiente de desenvolvimento não tem apps instaladas
+para o sistema oferecer, por isso só consigo validar aqui a lógica (deteção
+de suporte, geração da imagem, fallback de download), não a experiência
+final no ecrã do telemóvel.
+
 ## O que falta antes do lançamento
 
 - **Imagens dos destinos — `1.jpg` completo, `2.jpg`/`3.jpg` por fazer.**
