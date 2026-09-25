@@ -208,14 +208,17 @@ final no ecrã do telemóvel.
 
 ## O que falta antes do lançamento
 
-- **Imagens dos destinos — `1.jpg` completo, `2.jpg`/`3.jpg` por fazer.**
-  Os 20 destinos já têm o `1.jpg` (imagem principal, fornecida pelo Marco).
-  `2.jpg` e `3.jpg` de cada destino (imagens de apoio no guia completo)
-  continuam placeholder gerado por código, claramente marcado — substitui
-  quando tiveres mais fotos, ou pede-me para ir buscar ao Pexels.
-  `/public/images/quiz/` e `/public/images/hero/inicio.jpg` também já são
-  imagens finais (Pexels e o Marco, respetivamente — créditos do Pexels em
-  `public/images/quiz/CREDITOS.md`).
+- **Imagens dos destinos — `1.jpg` completo.** Os 20 destinos já têm o
+  `1.jpg` (imagem principal, fornecida pelo Marco), usado no ecrã de
+  resultado e no topo do guia completo. `/public/images/quiz/` e
+  `/public/images/hero/inicio.jpg` também já são imagens finais (Pexels e o
+  Marco, respetivamente — créditos do Pexels em
+  `public/images/quiz/CREDITOS.md`). O guia completo já não tem uma
+  mini-galeria `2.jpg`/`3.jpg` — era só placeholder gerado por código
+  (nunca chegou a ter fotos reais) e foi substituída pelos botões
+  "Partilhar com um amigo" e "Falar com a Famatour" logo a seguir à
+  introdução. Se um dia quiseres mesmo uma galeria de 3-5 fotos por
+  destino, é uma funcionalidade nova a construir, não uma correção.
 - **`tipoVisual` das perguntas.** Classificação inicial minha
   (texto/imagem) em `src/data/perguntas.ts` — valida depois de veres o
   protótipo com os dois tipos de cartão.

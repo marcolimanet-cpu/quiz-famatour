@@ -7,6 +7,8 @@ interface ConsultorCTAProps {
   /** Omitido em contextos sem participação associada (ex: /guia/[destino] aberto sem ?p=). */
   participacaoId?: string;
   nomeDestino: string;
+  /** Texto do botão — cada ecrã onde este CTA aparece pode enquadrar a chamada de forma diferente. */
+  texto?: string;
 }
 
 /**
@@ -14,7 +16,11 @@ interface ConsultorCTAProps {
  * resultado, nunca escondido num menu. Não é chatbot nem automação: é o
  * WhatsApp direto de um humano da equipa Famatour.
  */
-export function ConsultorCTA({ participacaoId, nomeDestino }: ConsultorCTAProps) {
+export function ConsultorCTA({
+  participacaoId,
+  nomeDestino,
+  texto = "Falar agora com um consultor Famatour",
+}: ConsultorCTAProps) {
   const numero = process.env.NEXT_PUBLIC_WHATSAPP_CONSULTOR_NUMERO;
 
   if (!numero) {
@@ -42,7 +48,7 @@ export function ConsultorCTA({ participacaoId, nomeDestino }: ConsultorCTAProps)
       onClick={clicar}
       className="flex items-center justify-center gap-2 rounded-full bg-azul-900 px-6 py-4 text-lg font-semibold text-white shadow-lg shadow-azul-900/30 transition-transform hover:scale-[1.02] hover:bg-azul-800 active:scale-[0.98]"
     >
-      Falar agora com um consultor Famatour
+      {texto}
     </a>
   );
 }

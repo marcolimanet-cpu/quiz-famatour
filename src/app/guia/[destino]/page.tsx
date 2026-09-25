@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -7,6 +8,7 @@ import { getConteudoGuia } from "@/data/conteudo-guia";
 import { GuiaCompletoConteudo } from "@/components/guia/GuiaCompletoConteudo";
 import { BotaoGuardarPdf } from "@/components/guia/BotaoGuardarPdf";
 import { RegistarAberturaGuia } from "@/components/guia/RegistarAberturaGuia";
+import { PartilharGuiaCTA } from "@/components/guia/PartilharGuiaCTA";
 import { BrandLogo } from "@/components/BrandLogo";
 import { ConsultorCTA } from "@/components/resultado/ConsultorCTA";
 
@@ -44,6 +46,12 @@ export default async function GuiaCompletoPage({
 
   const participacaoId = primeiroValor(query.p) ?? null;
 
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocolo = process.env.NODE_ENV === "development" ? "http" : "https";
+  const origem = process.env.NEXT_PUBLIC_SITE_URL ?? (host ? `${protocolo}://${host}` : "");
+  const linkGuia = `${origem}/guia/${destino.chave}`;
+
   return (
     <main className="flex flex-1 flex-col bg-white">
       <RegistarAberturaGuia participacaoId={participacaoId} />
@@ -73,23 +81,19 @@ export default async function GuiaCompletoPage({
 
         <p className="mt-6 text-lg italic text-azul-700">{conteudo.intro}</p>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          <div className="relative h-40 overflow-hidden rounded-2xl">
-            <Image
-              src={`/images/destinos/${destino.chave}/2.jpg`}
-              alt=""
-              fill
-              sizes="50vw"
-              className="object-cover"
+        <div className="print:hidden mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="flex-1">
+            <PartilharGuiaCTA
+              participacaoId={participacaoId ?? undefined}
+              destino={destino}
+              linkGuia={linkGuia}
             />
           </div>
-          <div className="relative h-40 overflow-hidden rounded-2xl">
-            <Image
-              src={`/images/destinos/${destino.chave}/3.jpg`}
-              alt=""
-              fill
-              sizes="50vw"
-              className="object-cover"
+          <div className="flex-1">
+            <ConsultorCTA
+              participacaoId={participacaoId ?? undefined}
+              nomeDestino={destino.nomeCompleto}
+              texto="Falar com a Famatour"
             />
           </div>
         </div>
