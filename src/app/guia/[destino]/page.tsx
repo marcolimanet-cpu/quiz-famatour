@@ -57,8 +57,9 @@ export default async function GuiaCompletoPage({
       <RegistarAberturaGuia participacaoId={participacaoId} />
 
       <div className="mx-auto w-full max-w-2xl px-6 py-10">
-        <div className="print:hidden mb-6 flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-between">
           <BrandLogo />
+          {/* O botão em si já tem print:hidden — o logótipo fica visível no PDF. */}
           <BotaoGuardarPdf />
         </div>
 
