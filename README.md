@@ -184,14 +184,14 @@ destino é...") só aparece no browser da própria pessoa, via `sessionStorage`
 
 ## O que falta antes do lançamento
 
-- **Imagens finais dos destinos.** `/public/images/quiz/` já tem fotos
-  reais (Pexels, licença gratuita para uso comercial, sem atribuição
-  obrigatória — créditos em `public/images/quiz/CREDITOS.md`).
-  `/public/images/hero/inicio.jpg` também já é uma imagem final (fornecida
-  pelo Marco). `/public/images/destinos/{chave}/` continua placeholder
-  gerado por código (gradiente + nome), claramente marcado. Substitui por
-  fotografia licenciada, da Famatour, ou pede-me para ir buscar mais ao
-  Pexels — mesma estrutura de pastas, `1.jpg` é a imagem principal.
+- **Imagens dos destinos — `1.jpg` completo, `2.jpg`/`3.jpg` por fazer.**
+  Os 20 destinos já têm o `1.jpg` (imagem principal, fornecida pelo Marco).
+  `2.jpg` e `3.jpg` de cada destino (imagens de apoio no guia completo)
+  continuam placeholder gerado por código, claramente marcado — substitui
+  quando tiveres mais fotos, ou pede-me para ir buscar ao Pexels.
+  `/public/images/quiz/` e `/public/images/hero/inicio.jpg` também já são
+  imagens finais (Pexels e o Marco, respetivamente — créditos do Pexels em
+  `public/images/quiz/CREDITOS.md`).
 - **`tipoVisual` das perguntas.** Classificação inicial minha
   (texto/imagem) em `src/data/perguntas.ts` — valida depois de veres o
   protótipo com os dois tipos de cartão.
