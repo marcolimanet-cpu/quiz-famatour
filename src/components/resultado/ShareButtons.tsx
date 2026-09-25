@@ -49,7 +49,7 @@ export function ShareButtons({ participacaoId, destino, linkResultado }: ShareBu
       const blob = await gerarCartaoPartilha(destino);
       if (!blob) return;
 
-      registarEvento("partilha_instagram_clicada", { destino: destino.chave });
+      registarEvento("partilha_cartao_clicada", { destino: destino.chave });
 
       if (partilhaNativaDisponivel) {
         const ficheiro = new File([blob], nomeFicheiro, { type: "image/png" });
@@ -98,7 +98,7 @@ export function ShareButtons({ participacaoId, destino, linkResultado }: ShareBu
           disabled={aGerarCartao}
           className="rounded-full border-2 border-azul-200 px-6 py-4 text-base font-semibold text-azul-900 transition-colors hover:border-dourado-400 hover:bg-azul-50 disabled:opacity-60"
         >
-          {aGerarCartao ? "A preparar imagem..." : "Partilhar no Instagram"}
+          {aGerarCartao ? "A preparar imagem..." : "Partilhar nas redes sociais"}
         </button>
         {!partilhaNativaDisponivel && (
           <p className="text-center text-sm text-azul-600">

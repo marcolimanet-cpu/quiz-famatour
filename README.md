@@ -182,11 +182,12 @@ respostas do participante original. A saudação personalizada ("Marco, o teu
 destino é...") só aparece no browser da própria pessoa, via `sessionStorage`
 (nunca chega ao servidor nem a quem abre o link partilhado).
 
-## Cartão de partilha (Instagram Stories)
+## Cartão de partilha (formato Stories)
 
-O botão "Partilhar no Instagram" do ecrã de resultado (`ShareButtons.tsx`)
-gera, em `src/lib/cartao-partilha.ts`, uma imagem vertical 1080x1920 com a
-foto real do destino (`/images/destinos/{chave}/1.jpg`), o logótipo da
+O botão "Partilhar nas redes sociais" do ecrã de resultado
+(`ShareButtons.tsx`) gera, em `src/lib/cartao-partilha.ts`, uma imagem
+vertical 1080x1920 com a foto real do destino
+(`/images/destinos/{chave}/1.jpg`), o logótipo da
 Famatour e o nome do destino sobrepostos com gradiente.
 
 - **Em telemóveis que suportam a Web Share API com ficheiros**
