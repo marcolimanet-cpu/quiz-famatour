@@ -18,6 +18,14 @@ const classesCampo =
 
 type Estado = "idle" | "a-enviar" | "enviado" | "erro";
 
+/** Quantos campos de idade mostrar, consoante a resposta à quantidade de filhos ("3+" mostra 3). */
+function numeroFilhos(valor: string | undefined): number {
+  if (valor === "1") return 1;
+  if (valor === "2") return 2;
+  if (valor === "3+") return 3;
+  return 0;
+}
+
 export function FormularioCrm({ participacaoId }: FormularioCrmProps) {
   const [respostas, setRespostas] = useState<Record<string, string>>({});
   const [consentimento, setConsentimento] = useState(false);
@@ -26,6 +34,19 @@ export function FormularioCrm({ participacaoId }: FormularioCrmProps) {
 
   function atualizarCampo(chave: string, valor: string) {
     setRespostas((anterior) => ({ ...anterior, [chave]: valor }));
+  }
+
+  // Ao reduzir (ou limpar) a quantidade de filhos, descarta as idades que
+  // deixaram de ter campo visível — para não as submeter às escondidas.
+  function atualizarQuantidadeFilhos(valor: string) {
+    setRespostas((anterior) => {
+      const seguinte: Record<string, string> = { ...anterior, filhos: valor };
+      const total = numeroFilhos(valor);
+      for (let i = total + 1; i <= 3; i++) {
+        delete seguinte[`filhos_idade_${i}`];
+      }
+      return seguinte;
+    });
   }
 
   async function handleSubmit(evento: FormEvent) {
@@ -78,36 +99,107 @@ export function FormularioCrm({ participacaoId }: FormularioCrmProps) {
       </div>
 
       <div className="flex flex-col gap-4">
-        {PERGUNTAS_CONTEUDO.map((pergunta) => (
-          <div key={pergunta.chave} className="flex flex-col gap-1.5">
-            <label htmlFor={pergunta.chave} className="text-sm font-medium text-azul-800">
-              {pergunta.pergunta}
-            </label>
-            {pergunta.tipo === "escolha" ? (
-              <select
-                id={pergunta.chave}
-                className={classesCampo}
-                value={respostas[pergunta.chave] ?? ""}
-                onChange={(e) => atualizarCampo(pergunta.chave, e.target.value)}
-              >
-                <option value="">Preferes não dizer</option>
-                {pergunta.opcoes?.map((opcao) => (
-                  <option key={opcao.valor} value={opcao.valor}>
-                    {opcao.etiqueta}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <input
-                id={pergunta.chave}
-                type={pergunta.tipo === "data" ? "date" : "text"}
-                className={classesCampo}
-                value={respostas[pergunta.chave] ?? ""}
-                onChange={(e) => atualizarCampo(pergunta.chave, e.target.value)}
-              />
-            )}
-          </div>
-        ))}
+        {PERGUNTAS_CONTEUDO.map((pergunta) => {
+          if (pergunta.chave === "primeira_viagem") {
+            return (
+              <div key={pergunta.chave} className="flex flex-col gap-1.5">
+                <span className="text-sm font-medium text-azul-800">{pergunta.pergunta}</span>
+                <div className="flex gap-6">
+                  {pergunta.opcoes?.map((opcao) => (
+                    <label
+                      key={opcao.valor}
+                      className="flex items-center gap-2 text-azul-950"
+                    >
+                      <input
+                        type="radio"
+                        name={pergunta.chave}
+                        value={opcao.valor}
+                        checked={respostas[pergunta.chave] === opcao.valor}
+                        onChange={(e) => atualizarCampo(pergunta.chave, e.target.value)}
+                        className="h-4 w-4 accent-dourado-500"
+                      />
+                      {opcao.etiqueta}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            );
+          }
+
+          if (pergunta.chave === "filhos") {
+            const totalFilhos = numeroFilhos(respostas.filhos);
+            return (
+              <div key={pergunta.chave} className="flex flex-col gap-1.5">
+                <label htmlFor={pergunta.chave} className="text-sm font-medium text-azul-800">
+                  {pergunta.pergunta}
+                </label>
+                <select
+                  id={pergunta.chave}
+                  className={classesCampo}
+                  value={respostas[pergunta.chave] ?? ""}
+                  onChange={(e) => atualizarQuantidadeFilhos(e.target.value)}
+                >
+                  <option value="">Preferes não dizer</option>
+                  {pergunta.opcoes?.map((opcao) => (
+                    <option key={opcao.valor} value={opcao.valor}>
+                      {opcao.etiqueta}
+                    </option>
+                  ))}
+                </select>
+                {totalFilhos > 0 && (
+                  <div className="mt-2 flex flex-col gap-2">
+                    {Array.from({ length: totalFilhos }).map((_, i) => (
+                      <input
+                        key={i}
+                        type="number"
+                        min={0}
+                        inputMode="numeric"
+                        placeholder={`Idade do ${i + 1}º filho`}
+                        aria-label={`Idade do ${i + 1}º filho`}
+                        className={classesCampo}
+                        value={respostas[`filhos_idade_${i + 1}`] ?? ""}
+                        onChange={(e) =>
+                          atualizarCampo(`filhos_idade_${i + 1}`, e.target.value)
+                        }
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          }
+
+          return (
+            <div key={pergunta.chave} className="flex flex-col gap-1.5">
+              <label htmlFor={pergunta.chave} className="text-sm font-medium text-azul-800">
+                {pergunta.pergunta}
+              </label>
+              {pergunta.tipo === "escolha" ? (
+                <select
+                  id={pergunta.chave}
+                  className={classesCampo}
+                  value={respostas[pergunta.chave] ?? ""}
+                  onChange={(e) => atualizarCampo(pergunta.chave, e.target.value)}
+                >
+                  <option value="">Preferes não dizer</option>
+                  {pergunta.opcoes?.map((opcao) => (
+                    <option key={opcao.valor} value={opcao.valor}>
+                      {opcao.etiqueta}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  id={pergunta.chave}
+                  type={pergunta.tipo === "data" ? "date" : "text"}
+                  className={classesCampo}
+                  value={respostas[pergunta.chave] ?? ""}
+                  onChange={(e) => atualizarCampo(pergunta.chave, e.target.value)}
+                />
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <label className="flex items-start gap-3 rounded-xl bg-azul-50 p-4 text-sm text-azul-900">

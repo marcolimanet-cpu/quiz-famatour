@@ -24,17 +24,16 @@ export const PERGUNTAS_CRM: PerguntaCrm[] = [
   },
   {
     chave: "filhos",
-    pergunta: "Tens filhos? Se sim, quantos e as datas de nascimento",
+    pergunta: "Tens filhos? Quantos e que idade têm?",
     usoComercial:
       "Campanhas de família (ex: parques temáticos), ofertas por idade dos filhos",
-    tipo: "texto",
-  },
-  {
-    chave: "data_casamento",
-    pergunta: "Data de casamento ou compromisso",
-    usoComercial:
-      "Campanhas de aniversário de casamento, sugestões de lua de mel",
-    tipo: "data",
+    tipo: "escolha",
+    opcoes: [
+      { valor: "0", etiqueta: "0 (zero)" },
+      { valor: "1", etiqueta: "1 (um)" },
+      { valor: "2", etiqueta: "2 (dois)" },
+      { valor: "3+", etiqueta: "3 ou mais" },
+    ],
   },
   {
     chave: "animais_estimacao",
@@ -55,8 +54,8 @@ export const PERGUNTAS_CRM: PerguntaCrm[] = [
     usoComercial: "Ajusta tom da comunicação (educar vs. upsell direto)",
     tipo: "escolha",
     opcoes: [
-      { valor: "sim", etiqueta: "Sim, é a primeira vez" },
-      { valor: "nao", etiqueta: "Não, já viajei com a Famatour antes" },
+      { valor: "sim", etiqueta: "Sim" },
+      { valor: "nao", etiqueta: "Não" },
     ],
   },
   {
