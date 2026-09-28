@@ -82,13 +82,48 @@ export const PERGUNTAS_CRM: PerguntaCrm[] = [
     tipo: "texto",
   },
   {
-    chave: "fidelizacao",
-    // Adaptado de "Já és cliente fidelizado de alguma companhia de cruzeiros? Em que nível?"
-    pergunta:
-      "És membro de algum programa de fidelização de viagens (companhias aéreas, hotéis, etc.)? Em que nível?",
+    chave: "com_quem_viajas",
+    pergunta: "Com quem viajas normalmente?",
     usoComercial:
-      'Sinal de valor de cliente alto; muda o tom da abordagem comercial de "explicar" para "poupar tempo e dar vantagem"',
-    tipo: "texto",
+      "Personaliza sugestões de destino/pacote (romântico, familiar, grupo)",
+    tipo: "escolha",
+    opcoes: [
+      { valor: "sozinho", etiqueta: "Sozinho" },
+      { valor: "casal", etiqueta: "Casal" },
+      { valor: "familia_criancas", etiqueta: "Família com crianças" },
+      { valor: "grupo_amigos", etiqueta: "Grupo de amigos" },
+    ],
+  },
+  {
+    chave: "destinos_sonho",
+    pergunta: "Que destinos sonhas conhecer?",
+    usoComercial:
+      "Lista de desejos para campanhas direcionadas e alertas de promoção por destino",
+    tipo: "escolha",
+    opcoes: [
+      { valor: "caraibas", etiqueta: "Caraíbas" },
+      { valor: "fiordes", etiqueta: "Fiordes" },
+      { valor: "mediterraneo", etiqueta: "Mediterrâneo" },
+      { valor: "alasca", etiqueta: "Alasca" },
+      { valor: "medio_oriente_egito", etiqueta: "Médio Oriente e Egito" },
+      { valor: "asia", etiqueta: "Ásia" },
+      { valor: "volta_ao_mundo", etiqueta: "Volta ao mundo" },
+      { valor: "outro", etiqueta: "Outro" },
+      { valor: "prefere_nao_dizer", etiqueta: "Preferes não dizer" },
+    ],
+  },
+  {
+    chave: "cruzeiros_feitos",
+    pergunta: "Quantos cruzeiros já fizeste?",
+    usoComercial:
+      "Sinal de experiência com cruzeiros; ajusta tom da comunicação (educar vs. upsell direto)",
+    tipo: "escolha",
+    opcoes: [
+      { valor: "0", etiqueta: "0" },
+      { valor: "1_a_3", etiqueta: "1 a 3" },
+      { valor: "4_a_10", etiqueta: "4 a 10" },
+      { valor: "mais_de_10", etiqueta: "Mais de 10" },
+    ],
   },
   {
     chave: "canal_conhecimento",
