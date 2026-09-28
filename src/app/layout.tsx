@@ -13,16 +13,45 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
+const TITULO_SITE = "Descobre o teu destino de férias | Famatour";
+const DESCRICAO_SITE =
+  "Responde a um quiz rápido e divertido e descobre qual é o teu destino de férias ideal — sugerido pela Famatour.";
+
+// A meta root layout não corre por pedido (ao contrário de /resultado/[id] e
+// /guia/[destino], que sabem o host real via urlBaseAbsoluta()) — por isso,
+// se NEXT_PUBLIC_SITE_URL não estiver definida, cai no domínio de produção
+// em vez de "localhost", que ficaria inválido numa pré-visualização real.
+const URL_BASE =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://quiz-famatour.vercel.app");
+
+const IMAGEM_OG_INICIO = `${URL_BASE}/images/og/inicio.jpg`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL?.trim() || "http://localhost:3000"),
-  title: "Descobre o teu Destino | Famatour",
-  description:
-    "Responde a algumas perguntas rápidas e descobre qual é o destino de férias ideal para ti — sugerido pela Famatour.",
+  metadataBase: new URL(URL_BASE),
+  title: TITULO_SITE,
+  description: DESCRICAO_SITE,
   openGraph: {
-    title: "Descobre o teu Destino | Famatour",
-    description:
-      "Responde a algumas perguntas rápidas e descobre qual é o destino de férias ideal para ti.",
+    title: TITULO_SITE,
+    description: DESCRICAO_SITE,
     type: "website",
+    url: URL_BASE,
+    images: [
+      {
+        url: IMAGEM_OG_INICIO,
+        width: 1200,
+        height: 630,
+        alt: "Descobre o teu Destino - Famatour",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITULO_SITE,
+    description: DESCRICAO_SITE,
+    images: [IMAGEM_OG_INICIO],
   },
 };
 

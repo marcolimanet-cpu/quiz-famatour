@@ -25,7 +25,11 @@ export async function generateMetadata({
 
   const urlBase = await urlBaseAbsoluta();
   const titulo = `Guia de ${destino.nomeCompleto} | Famatour`;
-  const imagem = `${urlBase}/images/destinos/${destino.chave}/1.jpg`;
+  // Imagem 1200x630 pré-gerada (ver scratchpad/gen_og_images.py) — a foto
+  // original tem outra proporção e passa dos ~300KB que o WhatsApp aceita
+  // bem, por isso a partilha usa esta versão dedicada, não o `1.jpg` cru.
+  const imagem = `${urlBase}/images/og/destinos/${destino.chave}.jpg`;
+  const urlPagina = `${urlBase}/guia/${destino.chave}`;
 
   return {
     title: titulo,
@@ -34,7 +38,8 @@ export async function generateMetadata({
       title: titulo,
       description: destino.tagline,
       type: "website",
-      images: [{ url: imagem, alt: destino.nomeCompleto }],
+      url: urlPagina,
+      images: [{ url: imagem, width: 1200, height: 630, alt: destino.nomeCompleto }],
     },
     twitter: {
       card: "summary_large_image",

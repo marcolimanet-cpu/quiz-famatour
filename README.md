@@ -197,7 +197,31 @@ WhatsApp não os reconhecia como link nem gerava pré-visualização).
 Graph e Twitter Card específicos do destino (título, descrição, e
 `og:image` a apontar para a foto real do destino) — a pré-visualização
 com imagem ao colar o link no WhatsApp/Instagram/Facebook depende destas
-tags, não só do link estar completo.
+tags, não só do link estar completo. A página inicial (`/`) usa o
+`metadata` estático de `layout.tsx`, com um fallback próprio para o
+domínio de produção (`quiz-famatour.vercel.app`) se `NEXT_PUBLIC_SITE_URL`
+não estiver definida — ao contrário das páginas dinâmicas, o layout não
+corre por pedido, por isso não tem acesso ao host real como rede de
+segurança, só ao momento do build.
+
+### Imagens de Open Graph (`public/images/og/`)
+
+Todas as imagens usadas em `og:image` são versões dedicadas, geradas a
+partir das fotos originais — nunca a foto "crua" diretamente, que tem
+outra proporção e passa dos ~300KB que o WhatsApp aceita bem:
+
+- `public/images/og/inicio.jpg` — a foto do ecrã inicial, recortada para
+  1200x630 com o logótipo da Famatour composto por cima (a versão ao
+  vivo do ecrã inicial mostra o logótipo como elemento HTML sobreposto,
+  que uma imagem estática partilhada não tem como reproduzir sozinha).
+- `public/images/og/destinos/{chave}.jpg` — a foto de cada um dos 20
+  destinos, recortada para 1200x630 (sem logótipo).
+
+Todas a 1200x630px, JPEG, sempre abaixo de 300KB. Gerados com um script
+Python (PIL) que recorta ao centro para a proporção certa antes de
+redimensionar, evitando distorcer a imagem — pede-me o script se
+precisares de o voltar a correr (ex: depois de trocares o `inicio.jpg`
+ou algum `1.jpg` de destino).
 
 ## Cartão de partilha (formato Stories)
 
