@@ -60,13 +60,18 @@ export const PERGUNTAS_CRM: PerguntaCrm[] = [
   },
   {
     chave: "celebra_ocasioes",
-    pergunta: "Costumas celebrar ocasiões especiais em viagem?",
+    pergunta: "Vais celebrar alguma ocasião especial nesta viagem?",
     usoComercial: "Sinaliza cliente propenso a pacotes de celebração/upgrade",
     tipo: "escolha",
     opcoes: [
-      { valor: "sim", etiqueta: "Sim" },
-      { valor: "as_vezes", etiqueta: "Às vezes" },
-      { valor: "nao", etiqueta: "Não" },
+      { valor: "aniversario", etiqueta: "Aniversário" },
+      { valor: "aniversario_casamento", etiqueta: "Aniversário de casamento ou namoro" },
+      { valor: "lua_de_mel", etiqueta: "Lua de mel" },
+      { valor: "dia_dos_namorados", etiqueta: "Dia dos Namorados" },
+      { valor: "natal", etiqueta: "Natal" },
+      { valor: "fim_de_ano", etiqueta: "Fim de ano" },
+      { valor: "outra", etiqueta: "Outra" },
+      { valor: "prefere_nao_dizer", etiqueta: "Preferes não dizer" },
     ],
   },
   {

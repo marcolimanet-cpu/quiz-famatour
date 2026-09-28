@@ -26,6 +26,12 @@ function numeroFilhos(valor: string | undefined): number {
   return 0;
 }
 
+/** "celebra_ocasioes" guarda as opções marcadas como lista separada por vírgulas num único valor. */
+function opcoesSelecionadas(valor: string | undefined): string[] {
+  if (!valor) return [];
+  return valor.split(",").filter(Boolean);
+}
+
 export function FormularioCrm({ participacaoId }: FormularioCrmProps) {
   const [respostas, setRespostas] = useState<Record<string, string>>({});
   const [consentimento, setConsentimento] = useState(false);
@@ -45,6 +51,31 @@ export function FormularioCrm({ participacaoId }: FormularioCrmProps) {
       for (let i = total + 1; i <= 3; i++) {
         delete seguinte[`filhos_idade_${i}`];
       }
+      return seguinte;
+    });
+  }
+
+  // Escolha múltipla com uma opção exclusiva ("Preferes não dizer"): marcá-la
+  // desmarca as restantes, e marcar qualquer outra desmarca-a a ela — nunca
+  // fazem sentido em simultâneo. Ao desmarcar "Outra", limpa o texto livre.
+  function alternarOcasiao(valorOpcao: string) {
+    setRespostas((anterior) => {
+      const atuais = opcoesSelecionadas(anterior.celebra_ocasioes);
+      let seguintes: string[];
+
+      if (valorOpcao === "prefere_nao_dizer") {
+        seguintes = atuais.includes("prefere_nao_dizer") ? [] : ["prefere_nao_dizer"];
+      } else if (atuais.includes(valorOpcao)) {
+        seguintes = atuais.filter((v) => v !== valorOpcao);
+      } else {
+        seguintes = [...atuais.filter((v) => v !== "prefere_nao_dizer"), valorOpcao];
+      }
+
+      const seguinte: Record<string, string> = {
+        ...anterior,
+        celebra_ocasioes: seguintes.join(","),
+      };
+      if (!seguintes.includes("outra")) delete seguinte.celebra_ocasioes_outra;
       return seguinte;
     });
   }
@@ -122,6 +153,43 @@ export function FormularioCrm({ participacaoId }: FormularioCrmProps) {
                     </label>
                   ))}
                 </div>
+              </div>
+            );
+          }
+
+          if (pergunta.chave === "celebra_ocasioes") {
+            const selecionadas = opcoesSelecionadas(respostas.celebra_ocasioes);
+            return (
+              <div key={pergunta.chave} className="flex flex-col gap-1.5">
+                <span className="text-sm font-medium text-azul-800">{pergunta.pergunta}</span>
+                <div className="flex flex-col gap-2">
+                  {pergunta.opcoes?.map((opcao) => (
+                    <label
+                      key={opcao.valor}
+                      className="flex items-center gap-2 text-azul-950"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selecionadas.includes(opcao.valor)}
+                        onChange={() => alternarOcasiao(opcao.valor)}
+                        className="h-5 w-5 shrink-0 accent-dourado-500"
+                      />
+                      {opcao.etiqueta}
+                    </label>
+                  ))}
+                </div>
+                {selecionadas.includes("outra") && (
+                  <input
+                    type="text"
+                    placeholder="Qual?"
+                    aria-label="Qual outra ocasião"
+                    className={`${classesCampo} mt-1`}
+                    value={respostas.celebra_ocasioes_outra ?? ""}
+                    onChange={(e) =>
+                      atualizarCampo("celebra_ocasioes_outra", e.target.value)
+                    }
+                  />
+                )}
               </div>
             );
           }
