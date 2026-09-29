@@ -150,9 +150,10 @@ export async function submeterCrm(
     return { ok: false, erro: "Não foi possível guardar as tuas respostas." };
   }
 
-  if (input.consentimento) {
-    const siteUrl = await urlBaseAbsoluta();
+  const siteUrl = await urlBaseAbsoluta();
+  const linkResultado = `${siteUrl}/resultado/${participacao.id}`;
 
+  if (input.consentimento) {
     const resultadoEnvio = await enviarParaAutomacao({
       evento: "crm_consentido",
       participacaoId: participacao.id,
@@ -173,7 +174,7 @@ export async function submeterCrm(
         partilhaWhatsappClicada: participacao.partilha_whatsapp_clicada,
       },
       partilhaId: participacao.partilha_id,
-      linkResultado: `${siteUrl}/resultado/${participacao.id}`,
+      linkResultado,
     });
 
     await supabase
@@ -185,6 +186,30 @@ export async function submeterCrm(
         webhook_ultimo_erro_em: resultadoEnvio.ok ? null : agora,
       })
       .eq("id", input.participacaoId);
+  } else {
+    // Sem consentimento não há marketing nem respostas guardadas (acima),
+    // mas o Marco continua a querer saber que alguém respondeu ao
+    // formulário — best-effort, só dados básicos de contacto, sem tracking
+    // de falhas na BD (tal como "resultado_calculado": perder este aviso
+    // não é "perder um lead", o lead já ficou registado na participação).
+    const envio = await enviarParaAutomacao({
+      evento: "crm_sem_consentimento",
+      participacaoId: participacao.id,
+      criadoEm: participacao.criado_em,
+      nome: participacao.nome,
+      email: participacao.email,
+      telemovel: participacao.telemovel,
+      destinoVencedor: participacao.destino_vencedor,
+      clusterVencedor: participacao.cluster_vencedor,
+      utm: participacao.utm,
+      linkResultado,
+    });
+
+    if (!envio.ok) {
+      console.error(
+        `[automation] aviso de CRM sem consentimento não enviado para participação ${participacao.id}: ${envio.erro}`
+      );
+    }
   }
 
   return { ok: true };

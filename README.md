@@ -132,7 +132,7 @@ batota.
 `src/lib/services/automation.ts` é o único sítio que sabe falar com a
 ferramenta de automação externa — um POST JSON para
 `AUTOMATION_WEBHOOK_URL`. Para trocar de ferramenta (HubSpot, Zapier,
-outra), só este ficheiro muda. Dois eventos distintos, pelo mesmo webhook
+outra), só este ficheiro muda. Três eventos distintos, pelo mesmo webhook
 (o Make.com decide o que fazer com cada um a partir do campo `evento`):
 
 - **`resultado_calculado`** — disparado sempre que o resultado é calculado
@@ -145,13 +145,24 @@ outra), só este ficheiro muda. Dois eventos distintos, pelo mesmo webhook
 - **`crm_consentido`** — disparado só com consentimento CRM explícito
   (`submeterCrm`), com as respostas da secção CRM e os sinais de
   comportamento. Este sim alimenta marketing personalizado.
+- **`crm_sem_consentimento`** — disparado quando a pessoa submete o
+  formulário CRM mas não marca a checkbox de consentimento
+  (`submeterCrm`). Só leva dados básicos de contacto (nome, email,
+  telemóvel, destino, UTM, link do resultado) — nunca as respostas do
+  formulário, que continuam a só existir com consentimento explícito (nem
+  chegam a ser guardadas na BD). Existe para o Marco não perder o registo
+  de que alguém respondeu, mesmo sem poder usar isso para marketing
+  direto — por exemplo, configurando um email de aviso no Make.com a
+  partir deste evento.
 
 Falhas do evento `crm_consentido` ficam registadas em `webhook_enviado` /
 `webhook_ultimo_erro` na tabela `participacoes`, para poderes reprocessar
-manualmente. Falhas do `resultado_calculado` só vão para o log (Vercel
-Runtime Logs) — é um envio best-effort complementar ao link que já fica
-sempre disponível em `/resultado/[id]`, por isso não tem o mesmo peso de
-"perdi um lead" que o `crm_consentido` tem.
+manualmente. Falhas do `resultado_calculado` e do `crm_sem_consentimento`
+só vão para o log (Vercel Runtime Logs) — são envios best-effort
+complementares a dados que já ficam disponíveis por outra via (o link de
+`/resultado/[id]`, e a própria participação já gravada na BD,
+respetivamente), por isso não têm o mesmo peso de "perdi um lead" que o
+`crm_consentido` tem.
 
 ## Sinais de comportamento
 

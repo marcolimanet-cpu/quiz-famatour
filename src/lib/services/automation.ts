@@ -7,7 +7,7 @@ import type { RespostaCrmGuardada, UtmParams } from "@/lib/supabase/types";
  * ambiente — ver AUTOMATION_WEBHOOK_URL no .env.example). Se um dia
  * trocares de ferramenta (HubSpot, Zapier, outra), só este ficheiro muda.
  *
- * Dois eventos distintos, pelo mesmo webhook (o campo `evento` deixa o
+ * Três eventos distintos, pelo mesmo webhook (o campo `evento` deixa o
  * cenário do Make.com decidir o que fazer com cada um):
  *
  * - "resultado_calculado": disparado sempre, assim que o resultado é
@@ -15,7 +15,14 @@ import type { RespostaCrmGuardada, UtmParams } from "@/lib/supabase/types";
  *   (entregar o guia à pessoa que acabou de dar o email precisamente para
  *   isso), não é "comunicações e ofertas personalizadas". Payload mínimo.
  * - "crm_consentido": disparado só com consentimento CRM explícito — este
- *   sim é o que alimenta marketing personalizado com base nas respostas.
+ *   sim é o que alimenta marketing personalizado com base nas respostas
+ *   (inclui as respostas do formulário).
+ * - "crm_sem_consentimento": disparado quando a pessoa submete o formulário
+ *   de perguntas CRM mas NÃO marca a checkbox de consentimento — para o
+ *   Marco não perder o registo de que alguém respondeu, mesmo sem poder
+ *   usar isso para marketing direto. Por isso só leva dados básicos de
+ *   contacto, nunca as respostas do formulário em si (essas continuam a só
+ *   existir com consentimento explícito — nem são guardadas na BD).
  */
 
 export interface SinaisComportamento {
@@ -55,7 +62,23 @@ export interface PayloadCrmConsentido {
   linkResultado: string;
 }
 
-export type PayloadAutomacao = PayloadResultadoCalculado | PayloadCrmConsentido;
+export interface PayloadCrmSemConsentimento {
+  evento: "crm_sem_consentimento";
+  participacaoId: string;
+  criadoEm: string;
+  nome: string;
+  email: string | null;
+  telemovel: string | null;
+  destinoVencedor: string;
+  clusterVencedor: string;
+  utm: UtmParams;
+  linkResultado: string;
+}
+
+export type PayloadAutomacao =
+  | PayloadResultadoCalculado
+  | PayloadCrmConsentido
+  | PayloadCrmSemConsentimento;
 
 export interface ResultadoEnvioAutomacao {
   ok: boolean;
