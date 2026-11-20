@@ -164,6 +164,19 @@ h2{font-size:24px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px}
 .btn:disabled{opacity:.6}
 .btn.cta{background:linear-gradient(135deg,#f9791a,#e55a00);box-shadow:0 6px 16px rgba(229,90,0,.35)}
 .btn.cta:active{transform:translateY(1px)}
+.lim{display:inline-flex;align-items:center;gap:7px;background:#fff0e3;color:#b34700;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:6px 12px;margin-bottom:12px}
+.faq{display:grid;gap:10px}
+.faq details{background:#fff;border-radius:18px;box-shadow:0 6px 16px rgba(28,27,134,.08)}
+.faq summary{list-style:none;cursor:pointer;padding:16px 46px 16px 18px;font-weight:600;font-size:16px;position:relative;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2px solid var(--indigo);border-bottom:2px solid var(--indigo);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{padding:0 18px 16px;font-size:15px;color:#34346a}
+.talk{margin-top:18px;text-align:center}
+.talk p{font-size:15px;color:var(--muted);margin-bottom:10px}
+.btn.wa{background:#168f4b;box-shadow:0 6px 16px rgba(22,143,75,.28);text-transform:uppercase;letter-spacing:.04em}
+.talk .num{display:block;margin-top:8px;font-size:13.5px;color:var(--muted)}
+.talk .num b{color:var(--ink);user-select:all}
 .hp{position:absolute;left:-9999px;opacity:0}
 .formerr{background:#fde8e8;color:#a11;border-radius:12px;padding:10px 14px;font-size:14px;margin-bottom:12px;display:none}
 .done{text-align:center;padding:10px 0}
@@ -203,6 +216,8 @@ footer p+p{margin-top:8px}
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19zM12 10v4.5M12 17.2v.1"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M16 5.5a3 3 0 0 1 0 6M18 14.8c1.8.6 3 2.2 3 5.2"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 3.6 6.7L3.5 20l1.2-3.9A8 8 0 0 1 4 12z"/><path d="M9.2 9.5c.3 2.6 2.7 5 5.3 5.3l1.1-1.2-1.9-1-.9.7a4 4 0 0 1-1.7-1.7l.7-.9-1-1.9z"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></symbol>
 </svg>
 
@@ -215,6 +230,7 @@ footer p+p{margin-top:8px}
     <a class="chip" href="#itinerario">Itinerário</a>
     <a class="chip" href="#equipa">Equipa</a>
     <a class="chip" href="#opinioes">Opiniões</a>
+    <a class="chip" href="#duvidas">Dúvidas</a>
     <a class="chip" href="#pedir">Pedir programa</a>
   </div>
 </nav>
@@ -243,6 +259,7 @@ footer p+p{margin-top:8px}
     </div>
   </div>
   <div class="tk-bot">
+    <div class="lim"><svg class="ico"><use href="#i-users"/></svg>Lugares limitados</div>
     <div class="price">
       <div class="note">por pessoa, em cabine interior dupla</div>
       <div class="pr">
@@ -250,7 +267,7 @@ footer p+p{margin-top:8px}
         <div class="big">2.365<small> €</small></div>
       </div>
     </div>
-    <div class="incl"><svg class="ico"><use href="#i-check"/></svg><span>Voos, taxas, gratificações, seguros e bebidas incluídas</span></div>
+    <div class="incl"><svg class="ico"><use href="#i-check"/></svg><span>Voos, transfers, taxas, gratificações, seguros e bebidas incluídas</span></div>
   </div>
 </div>
 
@@ -439,6 +456,20 @@ footer p+p{margin-top:8px}
   </div>
 </section>
 
+<!-- FAQ -->
+<section id="duvidas">
+  <h2>Dúvidas frequentes</h2>
+  <p class="sub">As perguntas que mais nos fazem.</p>
+  <div class="faq">
+    <details><summary>O que está incluído no preço?</summary><p>Voos, transfers, taxas, gratificações, seguros e bebidas. O preço de 2.365 € é por pessoa, em cabine interior dupla. [CONFIRMAR: excursões nas escalas incluídas ou não?]</p></details>
+    <details><summary>Como chego ao navio e como volto ao aeroporto?</summary><p>Os voos são diretos, do Porto ou de Lisboa para Barcelona, e os transfers entre o aeroporto e o porto estão incluídos. A hora de desembarque no regresso é combinada antes da viagem.</p></details>
+    <details><summary>Posso viajar sozinho(a)?</summary><p>Sim. Muita gente viaja sozinha e o grupo ajuda a conhecer pessoas desde o primeiro dia. Valor da cabine individual: [SUPLEMENTO INDIVIDUAL].</p></details>
+    <details><summary>Que documentos preciso?</summary><p>[CONFIRMAR: Cartão de Cidadão ou passaporte, e validade mínima exigida.] Se tiveres dúvidas, falamos contigo antes da reserva.</p></details>
+    <details><summary>Como funciona o pagamento da reserva?</summary><p>[SINAL] € para reservar e o restante até [DATA]. Enviamos os detalhes e as condições com o programa completo.</p></details>
+  </div>
+  <div class="talk"><p>Ficou alguma dúvida? Fala diretamente connosco.</p><a class="btn wa" href="https://wa.me/351939926203?text=Ol%C3%A1!%20Vi%20o%20programa%20do%20MSC%20World%20Asia%20(11%20junho%202027)%20e%20gostava%20de%20saber%20mais." target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>FALA CONNOSCO</a><span class="num">WhatsApp · <b>939 926 203</b></span></div>
+</section>
+
 <!-- 7. Formulário -->
 <section id="pedir">
   <h2>Pedir programa completo</h2>
@@ -467,6 +498,7 @@ footer p+p{margin-top:8px}
       <img src="logo.png" alt="Cruise Lovers" width="355" height="49">
     </div>
   </div>
+  <div class="talk"><p>Prefere falar? Responde-nos pelo WhatsApp.</p><a class="btn wa" href="https://wa.me/351939926203?text=Ol%C3%A1!%20Vi%20o%20programa%20do%20MSC%20World%20Asia%20(11%20junho%202027)%20e%20gostava%20de%20saber%20mais." target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>FALA CONNOSCO</a><span class="num">WhatsApp · <b>939 926 203</b></span></div>
 </section>
 
 </main>
