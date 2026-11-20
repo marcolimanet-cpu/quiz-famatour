@@ -74,7 +74,8 @@ nav.chips .scroll::-webkit-scrollbar{display:none}
 .price .big{font-size:42px;font-weight:700;line-height:1;color:var(--indigo);letter-spacing:-.02em}
 .price .big small{font-size:20px;font-weight:600}
 .price .from{font-size:13px;color:var(--muted)}
-.price .note{font-size:12.5px;color:var(--muted);text-align:right;max-width:150px;line-height:1.3}
+.price{align-items:center}.price .pr{text-align:right}.price .note{font-size:14px;color:var(--muted);text-align:left;max-width:150px;line-height:1.35}
+.incl{display:flex;gap:10px;align-items:flex-start;margin-top:14px;background:#e4f5ee;color:#0f5d41;border-radius:14px;padding:10px 14px;font-weight:500;font-size:15px;line-height:1.35}.incl .ico{margin-top:2px;font-size:18px}
 .todo{font-size:12px;color:var(--warn);background:var(--warn-bg);border-radius:8px;padding:3px 8px;display:inline-block;margin-top:10px}
 
 /* secções */
@@ -232,13 +233,13 @@ footer p+p{margin-top:8px}
   </div>
   <div class="tk-bot">
     <div class="price">
-      <div>
+      <div class="note">por pessoa, em cabine interior dupla</div>
+      <div class="pr">
         <div class="from">desde</div>
         <div class="big">1.999<small> €</small></div>
       </div>
-      <div class="note">por pessoa, em cabine interior dupla</div>
     </div>
-    <span class="todo">[CONFIRMAR] voos, taxas e gratificações incluídos?</span>
+    <div class="incl"><svg class="ico"><use href="#i-check"/></svg><span>Voos, taxas, gratificações, seguros e bebidas incluídas</span></div>
   </div>
 </div>
 
