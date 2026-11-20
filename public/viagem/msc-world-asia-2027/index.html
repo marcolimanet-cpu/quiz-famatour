@@ -63,10 +63,11 @@ nav.chips .scroll::-webkit-scrollbar{display:none}
 .route .p b{display:block;font-size:30px;line-height:1;letter-spacing:.01em;font-weight:700}
 .route .p span{font-size:13px;color:var(--muted)}
 .route .p.r{text-align:right}
-.route .mid{flex:1;text-align:center;font-size:12.5px;color:var(--muted)}
-.route .mid i{display:flex;align-items:center;gap:4px;margin-top:2px;color:var(--indigo)}
+.route .mid{flex:1;min-width:24px;text-align:center}
+.route .mid i{display:flex;align-items:center;gap:4px;color:var(--indigo)}
 .route .mid i::before,.route .mid i::after{content:"";flex:1;border-top:2px dashed var(--line)}
 .route .mid i::after{margin-left:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.meta span{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--lilac);color:var(--indigo);font-weight:600;font-size:16px;border-radius:999px;padding:10px 14px;white-space:nowrap}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin-top:16px}
 .box{border:1px solid var(--lilac-2);border-radius:14px;padding:9px 12px}
 .price{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
@@ -170,7 +171,7 @@ footer p+p{margin-top:8px}
 .bar .p{font-size:26px;font-weight:700;color:var(--indigo);line-height:1.1}
 .bar .p small{font-size:13px;font-weight:500;color:var(--muted)}
 .bar .btn{width:auto;padding:14px 24px;font-size:16px}
-@media (max-width:359px){.route .p b{font-size:23px}.route .p span{font-size:11.5px}.route .mid{font-size:11px}.price .big{font-size:36px}}
+@media (max-width:359px){.route .p b{font-size:23px}.route .p span{font-size:11.5px}.meta span{font-size:14.5px}.price .big{font-size:36px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar{transition:none}}
 </style>
 </head>
@@ -219,9 +220,10 @@ footer p+p{margin-top:8px}
   <div class="tk-top">
     <div class="route">
       <div class="p"><b>BCN</b><span>Barcelona, Espanha</span></div>
-      <div class="mid">8 dias · 7 noites<i><svg class="ico"><use href="#i-ship"/></svg></i>Ida e volta</div>
+      <div class="mid"><i><svg class="ico" style="font-size:22px"><use href="#i-ship"/></svg></i></div>
       <div class="p r"><b>BCN</b><span>Barcelona, Espanha</span></div>
     </div>
+    <div class="meta"><span><svg class="ico"><use href="#i-moon"/></svg>8 dias · 7 noites</span><span><svg class="ico"><use href="#i-wave"/></svg>Ida e volta</span></div>
     <div class="grid2">
       <div class="box"><div class="lbl">Partida</div><div class="val">Sex, 11 jun 2027</div></div>
       <div class="box"><div class="lbl">Regresso</div><div class="val">Sex, 18 jun 2027</div></div>
