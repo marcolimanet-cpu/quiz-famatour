@@ -253,6 +253,16 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 .stats div+div{border-left:1px solid var(--line)}
 .stats b{display:block;font-size:19px;color:var(--indigo);white-space:nowrap}
 .stats span{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.ptab{background:#fff;border-radius:var(--r);box-shadow:0 6px 16px rgba(28,27,134,.08);overflow:hidden}
+.pr{display:grid;grid-template-columns:1.05fr 1fr 1fr 1fr;align-items:center;gap:4px;padding:13px 14px;border-top:1px dashed var(--line);text-align:center}
+.pr .l{text-align:left;font-weight:600;font-size:15px;line-height:1.2}
+.pr .l small{display:block;font-weight:400;font-size:11.5px;color:var(--muted)}
+.pr .v{font-weight:600;font-size:15.5px;color:var(--ink);white-space:nowrap}
+.pr.head{border-top:0;background:var(--lilac);color:var(--indigo);font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:11px 14px}
+.pr.hl{background:#eceafd;border-top:0;padding:17px 14px}
+.pr.hl .l{color:var(--indigo);font-size:16px;font-weight:700}
+.pr.hl .v{color:var(--indigo);font-size:19px;font-weight:700}
+@media (max-width:359px){.pr{padding:12px 8px}.pr .v{font-size:13.5px}.pr.hl .v{font-size:15.5px}.pr .l{font-size:13.5px}.pr.head{font-size:11px}}
 .mk{color:var(--warn);background:var(--warn-bg);border-radius:6px;padding:0 5px}
 </style>
 </head>
@@ -485,16 +495,15 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 
 <section id="precos">
   <h2>Preços</h2>
-  <p class="sub">Valores por pessoa, com tudo o que está indicado em "O que inclui".</p>
-  <div class="pcard rows">
-    <div class="row hl"><div class="n">Cabine interior, dupla<small>Preço base, por pessoa</small></div><div class="v">2.365 €</div></div>
-    <div class="row"><div class="n">Cabine interior, individual<small>Base + suplemento de 1.010 €</small></div><div class="v">3.375 €</div></div>
-    <div class="row"><div class="n">Cabine exterior, dupla</div><div class="v"><span class="mk">[PREÇO]</span></div></div>
-    <div class="row"><div class="n">Cabine com varanda, dupla</div><div class="v"><span class="mk">[PREÇO]</span></div></div>
-    <div class="row"><div class="n">Cabine tripla / quádrupla<small>3.ª e 4.ª pessoa</small></div><div class="v"><span class="mk">[PREÇO]</span></div></div>
-    <div class="row"><div class="n">Criança<small><span class="mk">[IDADE / CONDIÇÕES]</span></small></div><div class="v"><span class="mk">[PREÇO]</span></div></div>
+  <p class="sub">Valores por pessoa, por tipo de cabine, com tudo o que está indicado em "O que inclui".</p>
+  <div class="ptab" role="table" aria-label="Preços por pessoa, por tipo de cabine">
+    <div class="pr head" role="row"><span role="columnheader"></span><span role="columnheader">Interior</span><span role="columnheader">Exterior</span><span role="columnheader">Varanda</span></div>
+    <div class="pr" role="row"><span class="l" role="rowheader">Individual</span><span class="v" role="cell">3.375 €</span><span class="v" role="cell">3.760 €</span><span class="v" role="cell">3.995 €</span></div>
+    <div class="pr hl" role="row"><span class="l" role="rowheader">Duplo<small>preço base</small></span><span class="v" role="cell">2.365 €</span><span class="v" role="cell">2.565 €</span><span class="v" role="cell">2.745 €</span></div>
+    <div class="pr" role="row"><span class="l" role="rowheader">Triplo</span><span class="v" role="cell">1.935 €</span><span class="v" role="cell">2.035 €</span><span class="v" role="cell">2.125 €</span></div>
+    <div class="pr" role="row"><span class="l" role="rowheader">Criança</span><span class="v" role="cell">1.690 €</span><span class="v" role="cell">1.790 €</span><span class="v" role="cell">1.860 €</span></div>
   </div>
-  <p class="aviso">Lugares limitados. Os preços e a disponibilidade de cada tipo de cabine são confirmados no momento da reserva.</p>
+  <p class="aviso">Criança: <span class="mk">[IDADE / CONDIÇÕES]</span>. Lugares limitados. Os preços e a disponibilidade de cada cabine são confirmados no momento da reserva.</p>
 </section>
 
 <section id="incluido">
