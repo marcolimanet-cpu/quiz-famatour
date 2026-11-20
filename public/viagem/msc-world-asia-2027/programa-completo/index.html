@@ -244,6 +244,11 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 .contact .btn+.btn{margin-top:10px}
 .btn.line{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--lilac-2)}
 .hero{padding-bottom:190px}
+.sm-t{display:flex;align-items:center;flex-wrap:wrap;gap:8px 8px;font-size:21px;color:var(--ink)}
+.sm-t .ico{color:var(--indigo);font-size:24px}
+.sm-t .new{margin-left:2px}
+.sm-d{margin-top:8px;font-weight:600;font-size:16.5px;color:var(--indigo)}
+.sm-r{margin-top:6px;font-size:14.5px;color:var(--muted);line-height:1.5}
 .summary .tk-top{border-radius:var(--r);-webkit-mask:none;mask:none}
 .intro{position:relative;z-index:2;margin-top:-84px;padding:20px 18px;background:#fff;border-radius:var(--r);box-shadow:0 6px 16px rgba(28,27,134,.12)}
 .intro .itl{margin-bottom:8px}
@@ -330,14 +335,9 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 
 <div class="summary tk" style="margin-top:16px">
   <div class="tk-top">
-    <div class="lbl itl">Itinerário</div>
-    <div class="itin"><span class="pt end">Barcelona</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Marselha</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Génova</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Nápoles</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Messina</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">La Valletta</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt end">Barcelona</span></div>
-    <div class="meta"><span><svg class="ico"><use href="#i-moon"/></svg>8 dias · 7 noites</span><span><svg class="ico"><use href="#i-wave"/></svg>Ida e volta</span></div>
-    <div class="grid2">
-      <div class="box"><div class="lbl">Partida</div><div class="val">Sex, 11 jun 2027</div></div>
-      <div class="box"><div class="lbl">Regresso</div><div class="val">Sex, 18 jun 2027</div></div>
-      <div class="box" style="grid-column:1/-1"><div class="lbl">Navio</div><div class="val"><svg class="ico"><use href="#i-ship"/></svg> MSC World Asia <span class="new">Navio novo</span></div></div>
-    </div>
+    <div class="sm-t"><svg class="ico"><use href="#i-ship"/></svg><b>MSC World Asia</b><span class="new">Navio novo</span></div>
+    <p class="sm-d">11 a 18 de junho de 2027 · 8 dias, 7 noites</p>
+    <p class="sm-r">Barcelona → Marselha → Génova → Nápoles → Messina → La Valletta → Barcelona</p>
   </div>
 </div>
 
