@@ -68,6 +68,11 @@ nav.chips .scroll::-webkit-scrollbar{display:none}
 .route .mid i{display:flex;align-items:center;gap:4px;color:var(--indigo)}
 .route .mid i::before,.route .mid i::after{content:"";flex:1;border-top:2px dashed var(--line)}
 .route .mid i::after{margin-left:0}
+.itl{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--indigo)}
+.itin{display:flex;flex-wrap:wrap;align-items:center;gap:6px 5px;margin-top:8px}
+.itin .pt{font-size:16px;font-weight:600;color:var(--ink);line-height:1.2}
+.itin .pt.end{color:var(--indigo);background:var(--lilac);border-radius:999px;padding:3px 10px}
+.itin .arr{color:#8a89cf;font-size:15px}
 .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.meta span{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--lilac);color:var(--indigo);font-weight:600;font-size:16px;border-radius:999px;padding:10px 14px;white-space:nowrap}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin-top:16px}
 .box{border:1px solid var(--lilac-2);border-radius:14px;padding:9px 12px}
@@ -190,6 +195,7 @@ footer p+p{margin-top:8px}
   <symbol id="i-wave" viewBox="0 0 24 24"><path d="M2 9c2.5-2 4.5-2 7 0s4.5 2 7 0 3-1.5 6 0M2 15c2.5-2 4.5-2 7 0s4.5 2 7 0 3-1.5 6 0"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19zM12 10v4.5M12 17.2v.1"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></symbol>
 </svg>
 
@@ -220,11 +226,8 @@ footer p+p{margin-top:8px}
 <!-- 1. Bilhete resumo -->
 <div class="summary tk" style="margin-top:-84px">
   <div class="tk-top">
-    <div class="route">
-      <div class="p"><b>BCN</b><span>Barcelona, Espanha</span></div>
-      <div class="mid"><i><svg class="ico" style="font-size:22px"><use href="#i-ship"/></svg></i></div>
-      <div class="p r"><b>BCN</b><span>Barcelona, Espanha</span></div>
-    </div>
+    <div class="lbl itl">Itinerário</div>
+    <div class="itin"><span class="pt end">Barcelona</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Marselha</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Génova</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Nápoles</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Messina</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">La Valletta</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt end">Barcelona</span></div>
     <div class="meta"><span><svg class="ico"><use href="#i-moon"/></svg>8 dias · 7 noites</span><span><svg class="ico"><use href="#i-wave"/></svg>Ida e volta</span></div>
     <div class="grid2">
       <div class="box"><div class="lbl">Partida</div><div class="val">Sex, 11 jun 2027</div></div>
