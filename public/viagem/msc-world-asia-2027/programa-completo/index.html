@@ -313,6 +313,109 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 .copied{display:block;min-height:20px;font-size:13.5px;color:var(--ok);margin-top:2px}
 .linkbox{position:absolute;left:-9999px;opacity:0;width:1px;height:1px;border:0;padding:0}
 .mk{color:var(--warn);background:var(--warn-bg);border-radius:6px;padding:0 5px}
+
+/* ===== Versão para PC: a partir de 960 px o desenho abre em colunas. Abaixo disto, tudo como no telemóvel. ===== */
+@media (min-width:960px){
+  body{padding-bottom:110px}
+  .wrap{max-width:1080px;padding:0 32px}
+  nav.chips .scroll{max-width:1080px;padding:0 32px;overflow:visible;gap:10px}
+  .chip{font-size:15px;padding:8px 18px}
+  .chip:hover{background:rgba(255,255,255,.14)}
+  .chip.on:hover{background:#fff}
+  section{padding:64px 0 0}
+  h2{font-size:32px;margin-bottom:8px}
+  .sub{font-size:17px;margin-bottom:26px;max-width:680px}
+  .mob{display:none}
+
+  .hero{padding:34px 0 210px;background:linear-gradient(90deg,rgba(28,27,134,.96) 0%,rgba(28,27,134,.78) 42%,rgba(28,27,134,.1) 100%),url(/viagem/msc-world-asia-2027/programa-completo/navio.jpg) 62% 58%/cover no-repeat,var(--indigo)}
+  .hero .logo{height:30px}
+  .hero .tagline{font-size:14px;padding:7px 16px;margin-top:34px}
+  .hero h1{font-size:48px;margin-top:22px;gap:4px}
+  .h1-c{font-size:84px;margin:2px 0 10px}
+  #ola{font-size:20px}
+
+  .intro{margin-top:-140px;padding:38px 44px;display:grid;grid-template-columns:1.35fr 1fr;column-gap:56px;align-items:center}
+  .intro .itl,.intro-t{grid-column:1}
+  .intro-t{font-size:18px;line-height:1.55}
+  .stats{grid-column:2;grid-row:1 / span 3;margin-top:0;grid-template-columns:1fr;padding:6px 0}
+  .stats div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:16px 24px;text-align:left}
+  .stats div+div{border-left:0;border-top:1px solid var(--line)}
+  .stats b{font-size:32px}
+  .stats span{font-size:15px;margin:0;text-align:right}
+
+  .summary .tk-top{padding:28px 34px}
+  .sm-t{font-size:30px}
+  .sm-t .ico{font-size:32px}
+  .sm-d{font-size:20px;margin-top:10px}
+  .sm-r{font-size:16.5px}
+
+  .seg{max-width:400px}
+  #v-porto,#v-lisboa{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .flight+.flight{margin-top:0}
+  .flight .tk-top{padding:24px 28px}
+  .fl-r .t{font-size:34px}
+  .fl-r .c{font-size:15px}
+  .bag{margin-top:20px;padding:18px 22px;font-size:16px}
+
+  .mapa{max-width:860px;margin:0 auto 26px}
+  .dias-t{margin:38px 0 20px}
+  .days{grid-template-columns:1fr 1fr;gap:24px}
+  .days .tk{display:flex}
+  .days .tk-top{flex:1;padding:24px}
+  .d-img{width:calc(100% + 48px);height:210px;margin:-24px -24px 18px}
+  .d-h .port{font-size:21px}
+  .d-p{font-size:16px}
+
+  .leaders{grid-template-columns:1fr 1fr;gap:24px}
+  .leader{padding:28px;gap:16px}
+  .ph{width:100px;height:100px}
+  .leader b{font-size:19px}
+  .leader p{font-size:16px}
+  .gal{display:grid;grid-template-columns:1fr 1fr;gap:24px;overflow:visible;margin:0 0 28px;padding:0}
+  .gal figure{flex:none;aspect-ratio:16/10}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;overflow:visible;margin:0;padding:0}
+  .quote{flex:none;padding:26px}
+  .quote p{font-size:16px}
+
+  .ptab,#precos .aviso{max-width:880px}
+  .pr{padding:20px 28px}
+  .pr .l{font-size:17px}
+  .pr .v{font-size:18px}
+  .pr.hl{padding:26px 28px}
+  .pr.hl .l{font-size:19px}
+  .pr.hl .v{font-size:26px}
+  .pr.head{padding:22px 28px 18px;font-size:14.5px}
+  .pr.head img{max-width:180px;border-radius:14px}
+
+  .two{grid-template-columns:1.4fr 1fr;gap:24px}
+  .box2{padding:28px}
+  .box2 h3{font-size:19px}
+  .ck{gap:13px}
+  .ck li{font-size:16px}
+
+  .steps{grid-template-columns:repeat(3,1fr);gap:24px}
+  .steps li{padding:26px;font-size:16px}
+
+  #cancelamento .pcard{display:grid;grid-template-columns:repeat(4,1fr);padding:10px 8px}
+  #cancelamento .row{padding:20px 24px;justify-content:flex-start}
+  #cancelamento .row+.row{border-top:0;border-left:1px dashed var(--line)}
+  #cancelamento .row .v.pc{font-size:16px}
+
+  #contactos h2,#contactos .sub{text-align:center}
+  #contactos .sub{margin-left:auto;margin-right:auto}
+  .contact{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px}
+  .contact .btn{width:auto;min-width:290px}
+  .contact .btn+.btn{margin-top:0}
+  .contact .num{flex-basis:100%}
+  .share{margin-top:40px}
+  .share .btn{display:flex;width:fit-content;min-width:320px;margin:0 auto}
+  .copy{display:block;margin:10px auto 0}
+
+  .bar{padding:12px 32px calc(12px + env(safe-area-inset-bottom))}
+  .bar .in{max-width:1080px}
+  .bar .p{font-size:30px}
+  .bar .btn{padding:15px 34px;font-size:17px}
+}
 </style>
 </head>
 <body>
@@ -530,7 +633,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 
 <section id="opinioes">
   <h2>Testemunhos</h2>
-  <p class="sub">Fotos reais de grupos anteriores e o que dizem os clientes. Desliza para ver mais.</p>
+  <p class="sub">Fotos reais de grupos anteriores e o que dizem os clientes.<span class="mob"> Desliza para ver mais.</span></p>
   <div class="gal" tabindex="0" aria-label="Fotos de grupos anteriores">
     <figure><img src="/viagem/msc-world-asia-2027/programa-completo/grupo-1.jpg" alt="Grupo de viajantes numa escadaria, numa viagem anterior" width="900" height="752" loading="lazy" decoding="async"><figcaption>Grupo de uma viagem anterior</figcaption></figure>
     <figure><img src="/viagem/msc-world-asia-2027/programa-completo/grupo-2.jpg" alt="Grupo de viajantes de chapéu e óculos de sol numa aldeia branca, numa viagem anterior" width="900" height="600" loading="lazy" decoding="async"><figcaption>Grupo de uma viagem anterior</figcaption></figure>
