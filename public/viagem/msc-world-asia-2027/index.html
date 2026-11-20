@@ -141,10 +141,12 @@ h2{font-size:24px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px}
 .leader p{font-size:14.5px;color:#34346a}
 .quotes{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 8px;scrollbar-width:none}
 .quotes::-webkit-scrollbar{display:none}
-.quote{flex:0 0 84%;scroll-snap-align:center;background:#fff;border-radius:var(--r);padding:18px;box-shadow:0 6px 16px rgba(28,27,134,.08);display:flex;flex-direction:column;gap:12px}
-.quote q{font-size:15.5px;quotes:none;color:#24245a}
-.quote .who{display:flex;align-items:center;gap:10px;font-size:14px;margin-top:auto}
-.quote .who .av{width:38px;height:38px;font-size:14px;background:var(--lilac);color:var(--indigo)}
+.quote{flex:0 0 84%;scroll-snap-align:center;background:#fff;border-radius:var(--r);padding:18px;box-shadow:0 6px 16px rgba(28,27,134,.08);display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.quote .ph.s{width:64px;height:64px;border-width:2px}
+.quote blockquote{margin:0}
+.quote p{font-size:15.5px;color:#24245a}
+.quote figcaption{margin-top:auto;font-size:14px;display:flex;flex-direction:column;line-height:1.35}
+.quote figcaption span{color:var(--muted)}
 .stars{color:#e0a100;letter-spacing:2px;font-size:15px}
 
 /* formulário */
@@ -202,7 +204,7 @@ footer p+p{margin-top:8px}
   <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></symbol>
 </svg>
 
-<div class="draft" id="draft">Rascunho: o que está entre [parênteses retos] ou marcado “Exemplo” ainda é provisório. (Apagar esta faixa antes de partilhar.)</div>
+<div class="draft" id="draft">Rascunho: o que está entre [parênteses retos] ainda é provisório. (Apagar esta faixa antes de partilhar.)</div>
 
 <nav class="chips" aria-label="Secções">
   <div class="scroll">
@@ -426,12 +428,12 @@ footer p+p{margin-top:8px}
 
 <!-- 6. Testemunhos -->
 <section id="opinioes">
-  <h2>Testemunhos <span class="exemplo">Exemplo</span></h2>
-  <p class="sub">Textos fictícios só para mostrar o formato. Substituir por testemunhos reais de viagens anteriores.</p>
+  <h2>Testemunhos</h2>
+  <p class="sub">O que dizem os clientes de viagens anteriores. Desliza para ver mais.</p>
   <div class="quotes" tabindex="0" aria-label="Testemunhos">
-    <div class="quote"><div class="stars" aria-label="5 estrelas">★★★★★</div><q>Nunca tinha viajado em grupo e tinha receio. Afinal foi o que mais me soube bem: tinha sempre alguém a quem perguntar e ninguém a mandar em mim.</q><div class="who"><div class="av">[N]</div><div><b>[Nome]</b><br><span class="lbl">[Viagem anterior]</span></div></div></div>
-    <div class="quote"><div class="stars" aria-label="5 estrelas">★★★★★</div><q>Foi tudo tratado antes de eu sair de casa. Cheguei ao porto e só tive de me preocupar com o que levava vestido.</q><div class="who"><div class="av">[N]</div><div><b>[Nome]</b><br><span class="lbl">[Viagem anterior]</span></div></div></div>
-    <div class="quote"><div class="stars" aria-label="5 estrelas">★★★★★</div><q>Fizemos amigos a bordo e ainda hoje combinamos jantares. Já estamos a pensar na próxima.</q><div class="who"><div class="av">[N]</div><div><b>[Nome]</b><br><span class="lbl">[Viagem anterior]</span></div></div></div>
+    <figure class="quote"><img class="ph s" src="t-ricardo.jpg" alt="Ricardo Dias" width="192" height="192" loading="lazy" decoding="async"><div class="stars" role="img" aria-label="5 estrelas">★★★★★</div><blockquote><p>Um agradecimento ao Marco e ao Nuno, que transformaram este cruzeiro numa viagem inesquecível. Desejo-lhes muito sucesso, pois merecem pela enorme simpatia e competência. Já tinha feito vários cruzeiros sozinho e posso comprovar que não tem comparação.</p></blockquote><figcaption><b>Ricardo Dias</b><span>Angra do Heroísmo</span></figcaption></figure>
+    <figure class="quote"><img class="ph s" src="t-gloria.jpg" alt="Glória Bento" width="192" height="192" loading="lazy" decoding="async"><div class="stars" role="img" aria-label="5 estrelas">★★★★★</div><blockquote><p>Esta foi a segunda vez que viajei convosco e viajarei muitas mais. Parabéns pelo vosso profissionalismo, pela vossa simpatia, pela vossa dedicação e preocupação com todos. Muito obrigada. Um forte abraço a todos e até ao próximo cruzeiro 🥰🥰</p></blockquote><figcaption><b>Glória Bento</b><span>Corroios</span></figcaption></figure>
+    <figure class="quote"><img class="ph s" src="t-fernando.jpg" alt="Fernando Pereira" width="192" height="192" loading="lazy" decoding="async"><div class="stars" role="img" aria-label="5 estrelas">★★★★★</div><blockquote><p>Muito sucesso na vossa atividade porque assim o merecem, tendo em conta a forma como organizam as viagens e a maneira como orientam as pessoas. Continuem sempre assim e um bem haja aos dois.</p></blockquote><figcaption><b>Fernando Pereira</b><span>Lisboa</span></figcaption></figure>
   </div>
 </section>
 
