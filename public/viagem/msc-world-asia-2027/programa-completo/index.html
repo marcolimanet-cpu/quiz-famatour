@@ -328,7 +328,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
     <img class="logo" src="../logo.png" alt="Cruise Lovers" width="355" height="49">
     <span class="tagline"><svg class="ico"><use href="#i-check"/></svg>Programa completo</span>
     <h1><span class="h1-a">Viagem em grupo pelo</span><span class="h1-b">Mediterrâneo</span><span class="h1-c"><b>MSC World Asia</b></span><span class="h1-d">11 a 18 de junho de 2027</span></h1>
-    <p id="ola">Aqui tens tudo o que precisas para decidir e reservar.</p>
+    <p id="ola" hidden></p>
   </div>
 </header>
 
@@ -610,7 +610,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
   })});
   // saudação personalizada: ?n=Ana
   try{var n=(new URLSearchParams(location.search).get('n')||'').trim().slice(0,40);
-    if(n){$('#ola').textContent='Olá, '+n+'! Aqui tens tudo o que precisas para decidir e reservar.'}}catch(e){}
+    if(n){var o=$('#ola');o.textContent='Olá, '+n+'!';o.hidden=false}}catch(e){}
   var chips=$$('nav.chips .chip');
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
