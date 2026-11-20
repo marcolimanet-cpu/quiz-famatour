@@ -302,6 +302,12 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 @media (max-width:359px){.pr{padding:12px 8px}.pr .v{font-size:13.5px}.pr.hl .v{font-size:15.5px}.pr .l{font-size:13.5px}.pr.head{font-size:11px}}
 #cancelamento h2{margin-bottom:14px}
 .h-cta{color:#e55a00}
+.share{margin-top:26px;text-align:center}
+.share p{font-size:15px;color:var(--muted);margin-bottom:10px}
+.share .btn{gap:10px}
+.copy{display:inline-block;margin-top:10px;background:none;border:0;font:inherit;font-size:14.5px;font-weight:600;color:var(--indigo);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 10px}
+.copied{display:block;min-height:20px;font-size:13.5px;color:var(--ok);margin-top:2px}
+.linkbox{position:absolute;left:-9999px;opacity:0;width:1px;height:1px;border:0;padding:0}
 .mk{color:var(--warn);background:var(--warn-bg);border-radius:6px;padding:0 5px}
 </style>
 </head>
@@ -321,6 +327,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
   <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M16 5.5a3 3 0 0 1 0 6M18 14.8c1.8.6 3 2.2 3 5.2"/></symbol>
   <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 3.6 6.7L3.5 20l1.2-3.9A8 8 0 0 1 4 12z"/><path d="M9.2 9.5c.3 2.6 2.7 5 5.3 5.3l1.1-1.2-1.9-1-.9.7a4 4 0 0 1-1.7-1.7l.7-.9-1-1.9z"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="m8.3 10.8 7.4-4M8.3 13.2l7.4 4"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></symbol>
 </svg>
 
@@ -597,6 +604,13 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
     <a class="btn wa" href="https://wa.me/351939926203?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20programa%20do%20MSC%20World%20Asia." target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>FALA CONNOSCO</a>
     <span class="num talk" style="display:block;margin-top:10px;font-size:13.5px;color:var(--muted)">WhatsApp · <b style="color:var(--ink)">939 926 203</b></span>
   </div>
+  <div class="share">
+    <p>Conheces alguém que vá gostar desta viagem?</p>
+    <a class="btn line" id="share" href="https://wa.me/?text=" target="_blank" rel="noopener"><svg class="ico"><use href="#i-share"/></svg>Partilhar com um amigo</a>
+    <button class="copy" id="copy" type="button">Copiar link</button>
+    <input class="linkbox" id="linkbox" type="text" readonly tabindex="-1" aria-hidden="true">
+    <span class="copied" id="copied" role="status" aria-live="polite"></span>
+  </div>
 </section>
 
 </main>
@@ -625,6 +639,24 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
   // saudação personalizada: ?n=Ana
   try{var n=(new URLSearchParams(location.search).get('n')||'').trim().slice(0,40);
     if(n){var o=$('#ola');o.textContent='Olá, '+n+'!';o.hidden=false}}catch(e){}
+  // partilhar com um amigo: o link partilhado é sempre o limpo (sem ?n=nome)
+  var TXT='Olha esta viagem em grupo a bordo do MSC World Asia, pelo Mediterrâneo. Dá uma vista de olhos:';
+  var SHARE_URL=(function(){var l=location;
+    if((l.protocol==='https:'||l.protocol==='http:')&&l.pathname.indexOf('/viagem/')===0){return l.origin+'/viagem/msc-world-asia-2027'}
+    return 'https://quiz-famatour.vercel.app/viagem/msc-world-asia-2027'})();
+  var sh=$('#share');
+  sh.href='https://wa.me/?text='+encodeURIComponent(TXT+' '+SHARE_URL);
+  sh.addEventListener('click',function(e){
+    if(navigator.share){e.preventDefault();
+      navigator.share({title:'MSC World Asia · Viagem em grupo',text:TXT,url:SHARE_URL}).catch(function(){})}
+  });
+  var cp=$('#copy'),msg=$('#copied'),box=$('#linkbox');
+  function ok(t){msg.textContent=t;setTimeout(function(){msg.textContent=''},2500)}
+  function fallback(){box.value=SHARE_URL;box.select();box.setSelectionRange(0,300);
+    var done=false;try{done=document.execCommand('copy')}catch(e){}ok(done?'Link copiado':SHARE_URL)}
+  cp.addEventListener('click',function(){
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(SHARE_URL).then(function(){ok('Link copiado')},fallback)}else{fallback()}
+  });
   var chips=$$('nav.chips .chip');
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
