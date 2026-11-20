@@ -237,9 +237,9 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 .steps li::before{counter-increment:s;content:counter(s);flex:none;width:34px;height:34px;border-radius:50%;background:var(--lilac);color:var(--indigo);display:grid;place-items:center;font-weight:700}
 .steps b{display:block;font-size:16px;margin-bottom:2px}
 .aviso{background:var(--lilac);color:var(--indigo);border-radius:16px;padding:12px 16px;font-size:14.5px;margin-top:12px;line-height:1.45}
-.info{display:grid;gap:10px;margin-top:2px}
-.info div{background:#fff;border-radius:var(--r);padding:16px 18px;box-shadow:0 6px 16px rgba(28,27,134,.08);font-size:15px;line-height:1.45}
-.info b{display:block;font-size:16px;margin-bottom:2px}
+.antes{display:grid;gap:10px;margin-top:2px}
+.antes div{background:#fff;border-radius:var(--r);padding:16px 18px;box-shadow:0 6px 16px rgba(28,27,134,.08);font-size:15px;line-height:1.45}
+.antes b{display:block;font-size:16px;margin-bottom:2px}
 .contact{margin-top:6px;text-align:center}
 .contact .btn+.btn{margin-top:10px}
 .btn.line{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--lilac-2)}
@@ -292,6 +292,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
   <div class="scroll">
     <a class="chip on" href="#voos">Voos</a>
     <a class="chip" href="#itinerario">Itinerário</a>
+    <a class="chip" href="#equipa">Equipa</a>
     <a class="chip" href="#precos">Preços</a>
     <a class="chip" href="#incluido">Incluído</a>
     <a class="chip" href="#reservar">Reservar</a>
@@ -484,6 +485,29 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
   </div>
 </section>
 
+<section id="equipa">
+  <h2>Tour leaders</h2>
+  <p class="sub">Quem vai com o grupo do embarque ao regresso.</p>
+  <div class="leaders">
+    <div class="leader"><div class="lh"><img class="ph" src="../carolina.jpg" alt="Carolina Vilaça" width="256" height="256" loading="lazy" decoding="async"><div><b>Carolina Vilaça</b><div class="role">Tour leader · Cruise Lovers</div></div></div><p>Habituada a acompanhar grupos, a Carolina vai estar com o grupo do embarque ao regresso. Uma das suas grandes paixões é descobrir a gastronomia local. Para ela, sentar-se à mesa e provar aquilo que se come em cada destino faz parte da viagem.</p></div>
+    <div class="leader"><div class="lh"><img class="ph" src="../fabiana.jpg" alt="Fabiana Rodrigues" width="256" height="256" loading="lazy" decoding="async"><div><b>Fabiana Rodrigues</b><div class="role">Tour leader · Cruise Lovers</div></div></div><p>A Fabiana já acompanhou vários grupos e adora a boa disposição que se cria quando se viaja em conjunto. Uma das suas grandes paixões é a fotografia de viagem. Gosta tanto de captar a chegada a um novo porto como aquele momento espontâneo do grupo que acaba por ser a melhor memória do dia.</p></div>
+  </div>
+</section>
+
+<section id="opinioes">
+  <h2>Testemunhos</h2>
+  <p class="sub">Fotos reais de grupos anteriores e o que dizem os clientes. Desliza para ver mais.</p>
+  <div class="gal" tabindex="0" aria-label="Fotos de grupos anteriores">
+    <figure><img src="../grupo-1.jpg" alt="Grupo de viajantes numa escadaria, numa viagem anterior" width="900" height="752" loading="lazy" decoding="async"><figcaption>Grupo de uma viagem anterior</figcaption></figure>
+    <figure><img src="../grupo-2.jpg" alt="Grupo de viajantes de chapéu e óculos de sol numa aldeia branca, numa viagem anterior" width="900" height="600" loading="lazy" decoding="async"><figcaption>Grupo de uma viagem anterior</figcaption></figure>
+  </div>
+  <div class="quotes" tabindex="0" aria-label="Testemunhos">
+    <figure class="quote"><img class="ph s" src="../t-gloria.jpg" alt="Glória Bento" width="192" height="192" loading="lazy" decoding="async"><div class="stars" role="img" aria-label="5 estrelas">★★★★★</div><blockquote><p>Esta foi a segunda vez que viajei convosco e viajarei muitas mais. Parabéns pelo vosso profissionalismo, pela vossa simpatia, pela vossa dedicação e preocupação com todos. Muito obrigada. Um forte abraço a todos e até ao próximo cruzeiro 🥰🥰</p></blockquote><figcaption><b>Glória Bento</b><span>Corroios</span></figcaption></figure>
+    <figure class="quote"><img class="ph s" src="../t-ricardo.jpg" alt="Ricardo Dias" width="192" height="192" loading="lazy" decoding="async"><div class="stars" role="img" aria-label="5 estrelas">★★★★★</div><blockquote><p>Um agradecimento especial às tour leaders, que transformaram este cruzeiro numa viagem inesquecível. Desejo-lhes muito sucesso, pois merecem pela enorme simpatia e competência. Já tinha feito vários cruzeiros sozinho e posso comprovar que não tem comparação.</p></blockquote><figcaption><b>Ricardo Dias</b><span>Angra do Heroísmo</span></figcaption></figure>
+    <figure class="quote"><img class="ph s" src="../t-fernando.jpg" alt="Fernando Pereira" width="192" height="192" loading="lazy" decoding="async"><div class="stars" role="img" aria-label="5 estrelas">★★★★★</div><blockquote><p>Muito sucesso na vossa atividade porque assim o merecem, tendo em conta a forma como organizam as viagens e a maneira como orientam as pessoas. Continuem sempre assim e um bem haja aos dois.</p></blockquote><figcaption><b>Fernando Pereira</b><span>Lisboa</span></figcaption></figure>
+  </div>
+</section>
+
 <section id="precos">
   <h2>Preços</h2>
   <p class="sub">Valores por pessoa, por tipo de cabine, com tudo o que está indicado em "O que inclui".</p>
@@ -558,7 +582,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 
 <section id="info">
   <h2>Antes de partir</h2>
-  <div class="info">
+  <div class="antes">
     <div><b>Documentos</b>Para este itinerário o Cartão de Cidadão é suficiente, mas recomendamos fortemente o passaporte.</div>
     <div><b>Embarque</b>Dia 11 de junho, em Barcelona. O navio parte às 18:00. <span class="mk">[HORA DE ENCONTRO E PONTO DE ENCONTRO]</span></div>
     <div><b>Regresso</b>Desembarque em Barcelona a 18 de junho, com a chegada do navio às 08:00. A hora de desembarque é combinada antes da viagem.</div>
