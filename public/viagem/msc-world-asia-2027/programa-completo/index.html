@@ -260,6 +260,9 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 .pr .l small{display:block;font-weight:400;font-size:11.5px;color:var(--muted)}
 .pr .v{font-weight:600;font-size:15.5px;color:var(--ink);white-space:nowrap}
 .pr.head{border-top:0;background:var(--lilac);color:var(--indigo);font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:11px 14px}
+.pr.head{align-items:end;padding:14px 12px 12px}
+.pr.head .c{display:grid;gap:7px;justify-items:center}
+.pr.head img{width:100%;height:auto;max-width:96px;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--lilac-2)}
 .pr.hl{background:#eceafd;border-top:0;padding:17px 14px}
 .pr.hl .l{color:var(--indigo);font-size:16px;font-weight:700}
 .pr.hl .v{color:var(--indigo);font-size:19px;font-weight:700}
@@ -512,7 +515,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
   <h2>Preços</h2>
   <p class="sub">Valores por pessoa, por tipo de cabine, com tudo o que está indicado em "O que inclui".</p>
   <div class="ptab" role="table" aria-label="Preços por pessoa, por tipo de cabine">
-    <div class="pr head" role="row"><span role="columnheader"></span><span role="columnheader">Interior</span><span role="columnheader">Exterior</span><span role="columnheader">Varanda</span></div>
+    <div class="pr head" role="row"><span role="columnheader"></span><span class="c" role="columnheader"><img src="../cabine-interior.jpg" alt="Cabine interior" width="320" height="240" loading="lazy" decoding="async">Interior</span><span class="c" role="columnheader"><img src="../cabine-exterior.jpg" alt="Cabine exterior" width="320" height="240" loading="lazy" decoding="async">Exterior</span><span class="c" role="columnheader"><img src="../cabine-varanda.jpg" alt="Cabine com varanda" width="320" height="240" loading="lazy" decoding="async">Varanda</span></div>
     <div class="pr hl" role="row"><span class="l" role="rowheader">Duplo<small>preço base</small></span><span class="v" role="cell">2.365 €</span><span class="v" role="cell">2.565 €</span><span class="v" role="cell">2.745 €</span></div>
     <div class="pr" role="row"><span class="l" role="rowheader">Triplo</span><span class="v" role="cell">1.935 €</span><span class="v" role="cell">2.035 €</span><span class="v" role="cell">2.125 €</span></div>
     <div class="pr" role="row"><span class="l" role="rowheader">Criança<small>2 a 12 anos</small></span><span class="v" role="cell">1.690 €</span><span class="v" role="cell">1.790 €</span><span class="v" role="cell">1.860 €</span></div>
