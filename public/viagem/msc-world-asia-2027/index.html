@@ -119,6 +119,8 @@ h2{font-size:24px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px}
 /* itinerário */
 .mapa{border-radius:var(--r);overflow:hidden;background:#fff;margin-bottom:14px}
 .mapa img{width:100%;height:auto}
+.dias-t{font-size:15px;font-weight:700;letter-spacing:.14em;color:var(--indigo);margin:22px 0 12px;display:flex;align-items:center;gap:12px}
+.dias-t::after{content:"";flex:1;border-top:2px dashed var(--line)}
 .days{display:grid;gap:14px}
 .d-img{object-position:50% 45%;display:block;width:calc(100% + 36px);max-width:none;height:150px;object-fit:cover;margin:-18px -18px 14px;border-radius:var(--r) var(--r) 0 0}
 .d-img.top{object-position:50% 18%}
@@ -383,6 +385,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
   <p class="sub">Dia a dia, com as horas a que o navio chega e sai.</p>
   <div class="mapa"><img src="mapa.jpg" alt="Mapa do itinerário: Barcelona, Marselha, Génova, Nápoles, Messina, La Valletta e regresso a Barcelona" width="1100" height="619" loading="lazy" decoding="async"></div>
 
+  <h3 class="dias-t">ITINERÁRIO</h3>
   <div class="days">
 
     <article class="tk">
@@ -442,7 +445,7 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 
     <article class="tk">
       <div class="tk-top">
-        <img class="d-img" src="navio.jpg" alt="O MSC World Asia no mar" width="800" height="450" loading="lazy" decoding="async" onerror="this.remove()">
+        <img class="d-img" src="escalas/navegacao.jpg" alt="Zona de piscinas e escorregas do navio, vista de cima" width="800" height="450" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="d-h"><div class="d-n">7</div><div><div class="port">Em navegação</div><div class="date">Quinta, 17 de junho</div></div></div>
         <p class="d-p">O dia de ver o mar, usar o navio e não olhar para o relógio. Sem escala.</p>
         <span class="pill info"><svg class="ico"><use href="#i-wave"/></svg>Dia de mar</span>
