@@ -243,6 +243,16 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 .contact{margin-top:6px;text-align:center}
 .contact .btn+.btn{margin-top:10px}
 .btn.line{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--lilac-2)}
+.hero{padding-bottom:190px}
+.intro{position:relative;z-index:2;margin-top:-84px;padding:20px 18px;background:#fff;border-radius:var(--r);box-shadow:0 6px 16px rgba(28,27,134,.12)}
+.intro .itl{margin-bottom:8px}
+.intro-t{font-size:15.5px;color:#24245a;line-height:1.5}
+.intro-t+.intro-t{margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:16px;background:var(--lilac);border-radius:16px;padding:12px 4px}
+.stats div{text-align:center;padding:0 6px;line-height:1.2}
+.stats div+div{border-left:1px solid var(--line)}
+.stats b{display:block;font-size:19px;color:var(--indigo);white-space:nowrap}
+.stats span{display:block;font-size:12px;color:var(--muted);margin-top:3px}
 .mk{color:var(--warn);background:var(--warn-bg);border-radius:6px;padding:0 5px}
 </style>
 </head>
@@ -290,7 +300,18 @@ footer a{color:var(--ink);font-weight:500;text-decoration:none;white-space:nowra
 
 <main class="wrap">
 
-<div class="summary tk" style="margin-top:-84px">
+<section class="intro" aria-label="A viagem">
+  <p class="lbl itl">A viagem</p>
+  <p class="intro-t">Uma semana a bordo do MSC World Asia, a descobrir o Mediterrâneo em grupo: Barcelona, Marselha, Génova e Portofino, Nápoles e Pompeia, Messina e Taormina, La Valletta. Pelo meio, um dia inteiro de mar para descansar.</p>
+  <p class="intro-t">Há mais de 20 anos que organizamos viagens em grupo. Do embarque ao regresso, o Marco Lima e o Nuno Ribeiro estão sempre por perto, para que só tenhas de te preocupar em aproveitar.</p>
+  <div class="stats" role="list">
+    <div role="listitem"><b>+20</b><span>anos de experiência</span></div>
+    <div role="listitem"><b>+1.000</b><span>passageiros em grupo</span></div>
+    <div role="listitem"><b>+250 mil</b><span>seguidores</span></div>
+  </div>
+</section>
+
+<div class="summary tk" style="margin-top:16px">
   <div class="tk-top">
     <div class="lbl itl">Itinerário</div>
     <div class="itin"><span class="pt end">Barcelona</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Marselha</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Génova</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Nápoles</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">Messina</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt">La Valletta</span><svg class="ico arr"><use href="#i-arrow"/></svg><span class="pt end">Barcelona</span></div>
